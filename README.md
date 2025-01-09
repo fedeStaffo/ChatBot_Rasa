@@ -47,6 +47,25 @@
 - Rasa SDK Version: 3.6.2
 - Python Version: 3.9.13
 
+### Installing Dependencies
+
+You can also install all required dependencies using the `requirements.txt` file:
+1. Ensure the virtual environment is activated.
+2. Install dependencies:
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+### Updating `requirements.txt`
+
+If you add new dependencies or update existing ones, you should update the `requirements.txt` file:
+1. Ensure the virtual environment is activated.
+2. Install or update the required packages.
+3. Freeze the current environment's packages to `requirements.txt`:
+    ```sh
+    pip freeze > requirements.txt
+    ```
+
 ### Rasa Project Structure
 
 - `actions/`: Contains custom action code.
