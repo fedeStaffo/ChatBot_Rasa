@@ -1,1 +1,20 @@
+# Ignore Python virtual environment
 rasa_env/
+
+# Ignore Rasa specific files
+.rasa/
+
+# Ignore other common files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.pot
+*.mo
+*.swp
+.DS_Store
+.idea/
+.vscode/
