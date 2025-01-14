@@ -3,6 +3,7 @@ rasa_env/
 
 # Ignore Rasa specific files
 .rasa/
+models/
 
 # Ignore other common files
 __pycache__/
