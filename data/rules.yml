@@ -11,3 +11,24 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Saluta l'utente quando dice ciao
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Rispondi quando l'utente nega
+  steps:
+  - intent: deny
+  - action: utter_goodbye
+
+- rule: Fornisci informazioni sulla lista dei servizi quando l'utente lo chiede
+  steps:
+  - intent: service_list_info
+  - action: action_service_list_info
+
+
+- rule: Fornisci dettagli sul servizio quando l'utente lo chiede
+  steps:
+  - intent: service_detail
+  - action: action_service_detail

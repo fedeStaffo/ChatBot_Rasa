@@ -1,0 +1,75 @@
+nome,tipo,indirizzo,orario
+Sì con te Tavernelle,spesa,Via B.Da Sassoferrato 1,08:00-20:30
+Conad Adriatico,spesa,Via delle Grazie 14,07:30-21:00
+Carrefour Market,spesa,Piazza Ugo Bassi 3,08:00-22:00
+Tigre Supermercato,spesa,Via Montebello 1,08:00-20:00
+Eurospin Ancona,spesa,Via Grandi 22,08:30-20:30
+Lidl Ancona,spesa,Via della Montagnola 72,08:00-21:00
+Coop Ancona,spesa,Via Tavernelle 100,08:00-21:00
+Mercato delle Erbe,spesa,Piazza D'Armi,07:00-14:00
+Simply Market,spesa,Via Marconi 45,08:00-20:00
+Pam Panorama,spesa,Via Giordano Bruno 25,08:00-21:00
+Bottega del Pane,spesa,Via Marconi 12,07:00-19:00
+Alimentari Rossi,spesa,Via Giordano Bruno 45,08:00-20:00
+Supermercato Sì,spesa,Via Flaminia 100,08:00-21:00
+NaturaSì,spesa,Via Martiri della Resistenza 30,09:00-20:00
+Parco del Cardeto,passeggiata,Via Cardeto 1,06:00-23:00
+Parco Belvedere,passeggiata,Via Belvedere 1,06:00-23:00
+Parco degli Ulivi,passeggiata,Via degli Ulivi 2,06:00-23:00
+Parco della Pace,passeggiata,Via della Pace 1,06:00-23:00
+Passetto,passeggiata,Via Trieste 85,00:00-24:00
+Lungomare Vanvitelli,passeggiata,Via Vanvitelli,00:00-24:00
+Lungomare di Palombina,passeggiata,Via Palombina,00:00-24:00
+Piazza Cavour,passeggiata,Piazza Cavour,00:00-24:00
+Piazza del Plebiscito,passeggiata,Piazza del Plebiscito,00:00-24:00
+Piazza Roma,passeggiata,Piazza Roma,00:00-24:00
+Piazzale Loreto,passeggiata,Viale della Vittoria,00:00-24:00
+Piazza Pertini,passeggiata,Piazza Pertini,00:00-24:00
+Piazza Stamira,passeggiata,Piazza Stamira,00:00-24:00
+Parco della Cittadella,passeggiata,Viale della Vittoria 1,06:00-23:00
+Ospedale Regionale di Torrette,visita medica,Via Conca 71,00:00-24:00
+Ospedale Salesi,visita medica,Via Corridoni 11,00:00-24:00
+Ospedale INRCA,visita medica,Via della Montagnola 81,00:00-24:00
+Poliambulatorio INRC,visita medica,Via Flaminia 4,08:00-20:00
+Studio Medico Dr. Rossi,visita medica,Via Giordano Bruno 22,09:00-19:00
+Farmacia Comunale,visita medica,Piazza d’Armi 9,08:00-20:00
+Centro Diagnostico Marche,visita medica,Via Giannelli 7,08:30-19:00
+Laboratorio Analisi Biolab,visita medica,Via Barilatti 1,08:00-18:00
+Centro Medico Ankon,visita medica,Via Giordano Bruno 10,08:00-20:00
+Centro Medico Polispecialistico,visita medica,Via Flaminia 10,08:00-20:00
+Farmacia Centrale,visita medica,Corso Garibaldi 3,08:00-20:00
+Farmacia del Corso,visita medica,Corso Amendola 15,08:00-20:00
+Casa di Riposo Ancona,visita parenti,Via Saffi 10,08:00-18:00
+Villa Serena,visita parenti,Via Isonzo 29,08:00-20:00
+Residenza Protetta San Giuseppe,visita parenti,Via San Giuseppe 12,09:00-19:00
+Villa Almagià,visita parenti,Via Ascoli Piceno 8,09:00-19:00
+RSA L’Ancora,visita parenti,Via del Commercio 15,08:30-18:30
+Galleria Dorica,shopping,Corso Garibaldi 27,09:00-21:00
+Auchan Conero,shopping,Via Scataglini 6,09:00-22:00
+Centro Commerciale Mirum,shopping,Via Scataglini 8,09:00-21:00
+Centro Commerciale Cargopier,shopping,Via Scataglini 10,09:00-21:00
+La Gru,shopping,Via Enrico Mattei 32,09:00-21:00
+Corso Mazzini,shopping,Corso Mazzini,10:00-20:00
+Via Lata,shopping,Via Lata,09:30-19:30
+Via XXIX Settembre,shopping,Via XXIX Settembre,10:00-20:00
+Via Carducci,shopping,Via Carducci,10:00-20:00
+Via Giordano Bruno,shopping,Via Giordano Bruno,09:30-19:30
+Comune di Ancona,servizi pubblici,Piazza XXIV Maggio 1,08:30-13:30
+Comune di Ancona - Ufficio Anagrafe,servizi pubblici,Via Frediani 3,08:30-13:30
+Comune di Ancona - Ufficio Tecnico,servizi pubblici,Via Frediani 5,08:30-13:30
+Agenzia delle Entrate,servizi pubblici,Via Martiri della Resistenza 4,08:00-12:30
+Agenzia delle Dogane,servizi pubblici,Via Mattei 36,08:00-12:30
+Agenzia del Territorio,servizi pubblici,Via Ruggeri 7,08:00-12:30
+INPS Ancona,servizi pubblici,Via Ruggeri 5,09:00-13:00
+INAIL Ancona,servizi pubblici,Via Ruggeri 3,09:00-13:00
+Ufficio Postale Ancona Centro,servizi pubblici,Via Matteotti 22,08:00-13:00
+Ufficio Postale Ancona Sud,servizi pubblici,Via Flaminia 10,08:00-13:00
+Ufficio Postale Ancona Nord,servizi pubblici,Via Flaminia 20,08:00-13:00
+Questura di Ancona,servizi pubblici,Via Gervasoni 3,08:00-18:00
+Comando Provinciale Carabinieri,servizi pubblici,Via XXV Aprile 1,08:00-18:00
+Comando Polizia Municipale,servizi pubblici,Via del Commercio 1,08:00-18:00
+Prefettura di Ancona,servizi pubblici,Piazza del Papa 1,09:00-13:00
+Tribunale di Ancona,servizi pubblici,Corso Mazzini 95,08:00-14:00
+Corte d'Appello di Ancona,servizi pubblici,Piazza Cavour 1,08:00-14:00
+Procura della Repubblica,servizi pubblici,Corso Mazzini 95,08:00-14:00
+Giudice di Pace,servizi pubblici,Via Matteotti 22,08:00-14:00

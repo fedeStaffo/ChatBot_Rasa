@@ -1,6 +1,8 @@
-# ChatBot_Rasa
+# ElderCare Chatbot
 
-## Instructions for Collaborators
+ElderCare is a chatbot designed to assist elderly users or their caregivers by providing information about various services, making bookings, and consulting the history of requested services. The primary goal of ElderCare is to offer a user-friendly interface that helps elderly individuals access essential services and information with ease.
+
+## Project Setup
 
 ### Setting up a Virtual Environment
 
@@ -66,7 +68,7 @@ If you add new dependencies or update existing ones, you should update the `requ
     pip freeze > requirements.txt
     ```
 
-### Rasa Project Structure
+## Rasa Project Structure
 
 - `actions/`: Contains custom action code.
 - `data/`: Contains training data for NLU and Core.
@@ -78,3 +80,39 @@ If you add new dependencies or update existing ones, you should update the `requ
 - `credentials.yml`: Contains credentials for external services.
 - `domain.yml`: Defines the domain of the assistant including intents, entities, slots, and responses.
 - `endpoints.yml`: Configuration for connecting to external services.
+
+## Training the Model
+
+To train the Rasa model, run the following command:
+```bash
+rasa train
+```
+
+## Running the Chatbot
+
+### Start the Action Server
+
+First, start the action server in one terminal:
+```bash
+rasa run actions
+```
+
+### Start the Rasa Server
+
+In another terminal, start the Rasa server:
+```bash
+rasa run --endpoints endpoints.yml
+```
+
+### Using the Rasa Shell
+
+To interact with the chatbot using the Rasa shell, run:
+```bash
+rasa shell
+```
+
+This will allow you to test the chatbot and see how it responds to various inputs.
+
+## Custom Actions
+
+The custom actions are defined in `actions/actions.py`. These actions are used to fetch information from external sources, such as a CSV file, and provide detailed responses to the user. (TODO)

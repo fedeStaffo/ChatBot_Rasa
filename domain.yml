@@ -5,29 +5,47 @@ intents:
   - goodbye
   - affirm
   - deny
-  - mood_great
-  - mood_unhappy
   - bot_challenge
+  - service_list_info
+  - service_detail
+  - next_action
+
+entities:
+  - service
 
 responses:
   utter_greet:
-  - text: "Ciao! Come stai?"
-
-  utter_cheer_up:
-  - text: "Ecco qualcosa per tirarti su:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Ti ha aiutato?"
-
-  utter_happy:
-  - text: "Fantastico, continua così!"
+  - text: "Ciao! Sono ElderCare, il chatbot di assistenza per anziani. 
+  Posso aiutarti fornendo informazioni generali sulla piattaforma, 
+  sui tipi di servizi, su come effettuare una nuova prenotazione
+  o consultare lo storico dei servizi richiesti. Come posso aiutarti oggi?"
 
   utter_goodbye:
   - text: "Arrivederci"
 
   utter_iamabot:
   - text: "Sono un bot, creato con Rasa."
+
+  utter_ask_service_detail:
+  - text: "Di quale servizio vuoi sapere i dettagli?"
+
+  utter_next_action:
+  - text: "Cosa vuoi fare ora? Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi, su come effettuare una nuova prenotazione o consultare lo storico dei servizi richiesti."
+
+slots:
+  service:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: service
+  service_list:
+    type: text
+    mappings:
+      - type: from_text
+
+actions:
+  - action_service_list_info
+  - action_service_detail
 
 session_config:
   session_expiration_time: 60

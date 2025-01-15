@@ -9,7 +9,6 @@ nlu:
     - buonasera
     - ehi
     - ciao a tutti
-    - ciao ciao
     - buona giornata
     - buon pomeriggio
 
@@ -47,30 +46,6 @@ nlu:
     - non sono d'accordo
     - non sono sicuro
 
-- intent: mood_great
-  examples: |
-    - perfetto
-    - fantastico
-    - meraviglioso
-    - mi sento benissimo
-    - sono felice
-    - sono contento
-    - tutto bene
-    - tutto ok
-    - tutto a posto
-
-- intent: mood_unhappy
-  examples: |
-    - la mia giornata è stata terribile
-    - sono triste
-    - non mi sento bene
-    - sono deluso
-    - sono molto triste
-    - non va bene
-    - non molto bene
-    - non sto bene
-    - non sono contento
-
 - intent: bot_challenge
   examples: |
     - sei un bot?
@@ -79,3 +54,45 @@ nlu:
     - sto parlando con un umano?
     - sei un robot?
     - sei una persona?
+
+- intent: service_list_info
+  examples: |
+    - vorrei informazioni sui servizi
+    - parlami dei servizi
+    - quali servizi offrite?
+    - quali sono i servizi disponibili?
+    - puoi dirmi quali servizi offrite?
+    - quali sono i servizi disponibili?
+    - mi puoi dare informazioni sui servizi?
+
+- intent: service_detail
+  examples: |
+    - voglio sapere di più sul servizio [spesa](service)
+    - mi interessa il servizio [fare la spesa](service)
+    - vorrei dettagli su [cucinare](service)
+    - puoi dirmi di più su [assistenza medica](service)
+    - hai informazioni su [passeggiate](service)
+
+- synonym: spesa
+  examples: |
+    - fare la spesa
+    - acquisti
+    - shopping alimentare
+
+- synonym: cucinare
+  examples: |
+    - preparare da mangiare
+    - fare da mangiare
+
+- synonym: passeggiata
+  examples: |
+    - camminare
+    - camminata
+
+- intent: next_action
+  examples: |
+    - cosa posso fare ora?
+    - quali sono le opzioni disponibili?
+    - cosa posso fare adesso?
+    - quali sono le altre opzioni?
+    - cosa posso fare dopo?

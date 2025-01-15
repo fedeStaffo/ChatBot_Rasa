@@ -5,71 +5,68 @@ stories:
 - story: happy path 1
   steps:
   - user: |
-      hello there!
+      ciao
     intent: greet
   - action: utter_greet
   - user: |
-      amazing
-    intent: mood_great
+      fantastico
+    intent: affirm
   - action: utter_happy
 
 - story: happy path 2
   steps:
   - user: |
-      hello there!
+      ciao
     intent: greet
   - action: utter_greet
   - user: |
-      amazing
-    intent: mood_great
+      fantastico
+    intent: affirm
   - action: utter_happy
   - user: |
-      bye-bye!
+      arrivederci
     intent: goodbye
   - action: utter_goodbye
 
 - story: sad path 1
   steps:
   - user: |
-      hello
+      ciao
     intent: greet
   - action: utter_greet
   - user: |
-      not good
+      non va bene
     intent: mood_unhappy
-  - action: utter_cheer_up
   - action: utter_did_that_help
   - user: |
-      yes
+      sì
     intent: affirm
   - action: utter_happy
 
 - story: sad path 2
   steps:
   - user: |
-      hello
+      ciao
     intent: greet
   - action: utter_greet
   - user: |
-      not good
+      non va bene
     intent: mood_unhappy
-  - action: utter_cheer_up
   - action: utter_did_that_help
   - user: |
-      not really
+      no
     intent: deny
   - action: utter_goodbye
 
 - story: sad path 3
   steps:
   - user: |
-      hi
+      ciao
     intent: greet
   - action: utter_greet
   - user: |
-      very terrible
+      molto male
     intent: mood_unhappy
-  - action: utter_cheer_up
   - action: utter_did_that_help
   - user: |
       no
@@ -79,13 +76,33 @@ stories:
 - story: say goodbye
   steps:
   - user: |
-      bye-bye!
+      arrivederci
     intent: goodbye
   - action: utter_goodbye
 
 - story: bot challenge
   steps:
   - user: |
-      are you a bot?
+      sei un bot?
     intent: bot_challenge
   - action: utter_iamabot
+
+- story: provide service info
+  steps:
+  - user: |
+      Vorrei informazioni sui servizi
+    intent: service_info
+  - action: action_service_info
+  - user: |
+      sì
+    intent: affirm
+  - action: utter_ask_service_detail
+  - user: |
+      cucinare
+    intent: inform
+  - action: action_service_detail
+  - action: utter_next_action
+  - user: |
+      cosa posso fare ora?
+    intent: next_action
+  - action: utter_greet

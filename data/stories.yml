@@ -2,29 +2,26 @@ version: "3.1"
 
 stories:
 
-- story: happy path
+- story: greet user
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+    - intent: greet
+    - action: utter_greet
 
-- story: sad path 1
+- story: user denies help
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+    - intent: deny
+    - action: utter_goodbye
 
-- story: sad path 2
+- story: provide service list info
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+    - intent: service_list_info
+    - action: action_service_list_info
+    - intent: affirm
+    - action: utter_ask_service_detail
+
+- story: provide service detail
+  steps:
+    - intent: service_detail
+    - action: action_service_detail
+    - intent: next_action
+    - action: utter_next_action
