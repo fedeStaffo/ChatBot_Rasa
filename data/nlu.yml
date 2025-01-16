@@ -23,12 +23,6 @@ nlu:
     - buonanotte
     - alla prossima
 
-- intent: service_details
-  examples: |
-    - dammi maggiori dettagli sui servizi
-    - voglio una spiegazione di un servizio
-    - spiegami come funzionano i servizi
-
 - intent: deny
   examples: |
     - no
@@ -121,6 +115,67 @@ nlu:
     - mi serve un passaggio per [pam panorama](location)
     - vorrei fare una passeggiata al [passetto](location)
     - devo andare alla [farmacia comunale](location) 
+
+- intent: provide_preference_sex
+  examples: |
+    - vorrei un [maschio](sex)
+    - vorrei una [femmina](sex)
+    - preferisco un operatore [m](sex)
+    - preferisco un'operatrice [f](sex)
+    - mi va bene sia m che [f](sex)
+
+- synonym: maschio
+  examples: |
+    - uomo
+    - maschile
+    - m
+
+- synonym: femmina
+  examples: |
+    - donna
+    - femminile
+    - f
+
+- intent: provide_preference_car
+  examples: |
+    - [si](car) preferisco un operatore con auto
+    - [no](car) non è necessario
+    - [si](car) voglio un operatore con auto
+    - [no](car) non serve che l'operatore abbia un'auto
+
+- synonym: auto
+  examples: |
+    - macchina
+    - vettura
+    - automobile
+
+- intent: provide_preference_medical_skills
+  examples: |
+    - [si](med) ho bisogno di un operatore con competenze mediche
+    - [no](med) non ho bisogno di competenze mediche
+    - [si](med) voglio un operatore con competenze mediche
+    - [no](med) non servono competenze mediche
+
+#- intent: provide_preference_language
+#  examples: |
+#    - preferisco un operatore che parli [rumeno](language)
+#    - voglio un operatore che parli [inglese](language)
+#    - preferisco un operatore che parli [spagnolo](language)
+
+- intent: provide_preference_time
+  examples: |
+    - preferisco alle [15:00](time)
+    - mi va bene la [mattina](time)
+    - vorrei l'intervento tra le [14:00 e le 16:00](time)
+    - preferisco la [sera](time)
+    - vorrei il [pomeriggio](time)
+
+- intent: confirm_operator
+  examples: |
+    - confermo l'operatore scelto [Mario Rossi](operator)
+    - si va bene l'operatore [Luca Bianchi](operator)
+    - va bene, confermo l'operatore [Giovanni Verdi](operator)
+    - d'accordo per l'operatore [Paolo Neri](operator)
 
 - intent: confirm_booking
   examples: |

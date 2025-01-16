@@ -3,23 +3,34 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - service_details
   - deny
   - stop
   - next_action
   - bot_challenge
-  # Service handling
+  # Service info handling
   - service_list_info
   - service_detail
   # Booking handling
   - new_booking
   - service_choice
   - provide_location
+  - provide_preference_sex
+  - provide_preference_car
+  - provide_preference_medical_skills
+  #- provide_preference_language
+  - provide_preference_time
+  - confirm_operator
   - confirm_booking
 
 entities:
   - service
   - location
+  - sex
+  - car
+  - med
+  #- language
+  - time
+  - operator
 
 responses:
   utter_greet:
@@ -30,16 +41,24 @@ responses:
   - text: "Va bene, se hai bisogno di aiuto, sono qui."
   utter_iamabot:
   - text: "Sono un bot, creato con Rasa."
-  utter_ask_service_detail:
-  - text: "Di quale servizio vuoi sapere i dettagli?"
   utter_next_action:
   - text: "Cosa vuoi fare ora? Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi, su come effettuare una nuova prenotazione o consultare lo storico dei servizi richiesti."
   utter_new_booking: 
   - text: "Quale servizio vuoi prenotare?"
+  utter_ask_sex_preference:
+  - text: "Hai una preferenza sul sesso dell'operatore? (m/f)"
+  utter_ask_car_preference:
+  - text: "Preferisci un operatore automunito? (si/no)"
+  utter_ask_medical_skills_preference:
+  - text: "Hai bisogno di un operatore con competenze mediche? (si/no)"
+  #utter_ask_language_preference:
+  #- text: "Quale lingua preferisci che parli l'operatore?"
+  utter_ask_time_preference:
+  - text: "In quale fascia oraria ti sarebbe comodo l'intervento? (es. 14:00-16:30)"
   utter_confirm_booking:
-  - text: "Confermi la prenotazione del servizio {service} a {location}?"
+  - text: "Confermi la prenotazione del servizio {service} presso {location} con le preferenze espresse per la fascia oraria {time}?"
   utter_booking_confirmed:
-  - text: "Prenotazione confermata. Il servizio {service} verrà effettuato a {location}."
+  - text: "Prenotazione confermata! Grazie per aver scelto ElderCare."
 
 slots:
   service:
@@ -52,11 +71,42 @@ slots:
     mappings:
       - type: from_entity
         entity: location
+  sex:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: sex
+  car:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: car
+  med:  
+    type: text
+    mappings:
+      - type: from_entity
+        entity: med
+  #language:
+  #  type: text
+  #  mappings:
+  #    - type: from_entity
+  #     entity: language
+  time:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: time
+  operator:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: operator
 
 actions:
   - action_service_list_info
   - action_service_detail
   - action_set_service_location
+  - action_find_available_operator
 
 session_config:
   session_expiration_time: 60

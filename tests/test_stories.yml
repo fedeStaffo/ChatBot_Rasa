@@ -24,7 +24,7 @@ stories:
   - action: action_service_list_info
   - user: |
       sì
-    intent: service_details
+    intent: list_services
   - action: utter_ask_service_detail
   - user: |
       cucinare

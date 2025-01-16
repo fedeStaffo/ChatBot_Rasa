@@ -16,15 +16,13 @@ stories:
   steps:
     - intent: service_list_info
     - action: action_service_list_info
-    - intent: service_details
-    - action: utter_ask_service_detail
 
 - story: provide service detail
   steps:
     - intent: service_detail
     - action: action_service_detail
 
-- story: new booking
+- story: new booking with preferences
   steps:
     - intent: new_booking
     - action: utter_new_booking
@@ -35,6 +33,30 @@ stories:
     - intent: provide_location
       entities:
         - location
-    - action: utter_confirm_booking 
-    - intent: confirm_booking 
+    - action: utter_ask_sex_preference
+    - intent: provide_preference_sex
+      entities:
+        - sex
+    - action: utter_ask_car_preference
+    - intent: provide_preference_car
+      entities:
+        - car
+    - action: utter_ask_medical_skills_preference
+    - intent: provide_preference_medical_skills
+      entities:
+        - med
+    #- action: utter_ask_language_preference
+    #- intent: provide_preference_language
+    #  entities:
+    #    - language
+    - action: utter_ask_time_preference
+    - intent: provide_preference_time
+      entities:
+        - time
+    - action: action_find_available_operator
+    - intent: confirm_operator
+      entities:
+        - operator
+    - action: utter_confirm_booking
+    - intent: confirm_booking
     - action: utter_booking_confirmed

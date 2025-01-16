@@ -40,6 +40,11 @@ rules:
     steps:
       - intent: service_detail
       - action: action_service_detail
+  
+  - rule: Quando l'utente conferma l'operatore, chiedi conferma della prenotazione
+    steps:
+      - intent: confirm_operator
+      - action: utter_confirm_booking
 
   - rule: Quando l'utente lo chiede, conferma la prenotazione
     steps:

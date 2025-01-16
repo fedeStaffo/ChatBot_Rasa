@@ -10,6 +10,8 @@ from rasa_sdk import Action
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.interfaces import Tracker
+import random
+from datetime import datetime, timedelta
 
 # This is a simple example for a custom action which utters "Hello World!"
 class ActionHelloWorld(Action):
@@ -48,12 +50,10 @@ class ActionServiceListInfo(Action):
         @param dispatcher: The dispatcher used to send messages back to the user.
         @param tracker: The tracker instance containing the conversation state.
         @param domain: The domain dictionary containing action and intent definitions.
-        
-        @return: A list containing the SlotSet action with the updated 'service_list'.
         """
         services = []
         # Opens the CSV file containing service data
-        with open('data/csv/servizio.csv', newline='', encoding='utf-8') as csvfile:
+        with open('data/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             # Reads each row and appends the service name to the services list
             for row in reader:
@@ -63,8 +63,7 @@ class ActionServiceListInfo(Action):
         service_list = ", ".join(services)
         # Sends the list of services to the user
         dispatcher.utter_message(text=f"Ecco i servizi disponibili: {service_list}. Vuoi maggiori dettagli su uno di questi servizi?")
-        # Updates the 'service_list' slot with the list of services
-        return [SlotSet("service_list", service_list)]
+        return []
 
 
 class ActionServiceDetail(Action):
@@ -105,7 +104,7 @@ class ActionServiceDetail(Action):
 
         service_detail = None
         # Opens the CSV file containing service data
-        with open('data/csv/servizio.csv', newline='', encoding='utf-8') as csvfile:
+        with open('data/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             # Iterates over each row in the CSV file
             for row in reader:
@@ -167,7 +166,7 @@ class ActionSetServiceLocation(Action):
         location = None
 
         # Open the CSV file and search for the matching service
-        with open('data/csv/servizio.csv', newline='', encoding='utf-8') as csvfile:
+        with open('data/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 # Normalize the service name from the CSV
@@ -178,7 +177,7 @@ class ActionSetServiceLocation(Action):
 
         # If the service is at home, confirm the booking
         if location == "casa":
-            dispatcher.utter_message(text=f"Hai selezionato il servizio '{service_name}' a casa. Confermi?")
+            dispatcher.utter_message(text=f"Hai selezionato il servizio '{service_name}' a casa. Hai preferenze sul sesso dell'operatore? (m/f)")
             return [SlotSet("location", location)]
 
         # If the service is outside, ask for the specific location
@@ -200,3 +199,88 @@ class ActionSetServiceLocation(Action):
             # If no location is found for the service, inform the user
             dispatcher.utter_message(text=f"Mi dispiace, non ho trovato dettagli per il servizio '{service_name}'. Riprova.")
             return []
+
+def is_time_overlap(user_time: str, operator_time: str) -> bool:
+    """
+    Check if the user's time overlaps with the operator's time.
+    @param user_time: Time range chosen by the user (e.g., '14:00-16:30', 'mattina', or 'alle 15')
+    @param operator_time: Time range available for the operator (e.g., '14:00-16:30')
+    @return: True if the times overlap, False otherwise
+    """
+    # Define time ranges for generic times
+    generic_times = {
+        'mattina': ('08:00', '12:00'),
+        'pomeriggio': ('12:00', '18:00'),
+        'sera': ('18:00', '22:00')
+    }
+
+    def time_to_tuple(time_str: str):
+        if '-' in time_str:  # Specific time range
+            start, end = time_str.split('-')
+        elif time_str in generic_times:  # Generic time range (e.g., "mattina")
+            start, end = generic_times[time_str]
+        else:  # Specific time point (e.g., "alle 15")
+            start = time_str
+            end = (datetime.strptime(time_str, '%H:%M') + timedelta(hours=1)).strftime('%H:%M')
+        return start, end
+
+    user_start, user_end = time_to_tuple(user_time)
+    operator_start, operator_end = time_to_tuple(operator_time)
+
+    # Check if the user time range overlaps with the operator's time range
+    return not (user_end <= operator_start or user_start >= operator_end)
+
+class ActionFindAvailableOperator(Action):
+    def name(self) -> Text:
+        return "action_find_available_operator"
+
+    def run(self, dispatcher, tracker, domain) -> List[Dict[Text, Any]]:
+        """
+        Finds an available operator based on user preferences and time slot.
+        """
+        # Retrieve user preferences from slots
+        sex = tracker.get_slot("sex")  # e.g., 'M' or 'F'
+        car = tracker.get_slot("car")  # e.g., 'si' or 'no'
+        med = tracker.get_slot("med")  # e.g., 'si' or 'no'
+        #language = tracker.get_slot("language")  # e.g., 'inglese'
+        language = None
+        time = tracker.get_slot("time")  # e.g., '14:00-16:30' or 'mattina'
+
+        available_operators = []
+
+        try:
+            # Open and read the CSV file containing operator data
+            with open('data/csv/operatori.csv', mode='r', encoding='utf-8') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    # Check if operator meets all preferences
+                    if (row['sesso'] == sex or sex is None) and \
+                            (row['automunito'] == car or car is None) and \
+                            (row['linguaggi'] == language or language is None) and \
+                            (row['competenze_mediche'] == med or med is None):
+
+                        # Check if the user's time overlaps with the operator's available time
+                        if is_time_overlap(time, row['fascia_oraria']):
+                            available_operators.append(row)
+
+            if available_operators:
+                # Choose a random operator from the available ones
+                chosen_operator = random.choice(available_operators)
+                name = chosen_operator['nome']
+                surname = chosen_operator['cognome']
+
+                # Save the operator in the slot and notify the user
+                dispatcher.utter_message(f"Ho trovato un operatore disponibile: {name} {surname}. Conferma se per te va bene.")
+                return [SlotSet("operator", f"{name} {surname}")]
+            else:
+                # If no operator is available, inform the user
+                dispatcher.utter_message("Mi dispiace, non sono riuscito a trovare un operatore disponibile che corrisponda alle tue preferenze e all'orario richiesto.")
+                return [SlotSet("operator", None)]
+
+        except FileNotFoundError:
+            dispatcher.utter_message("Errore: il file degli operatori non è stato trovato.")
+            return [SlotSet("operator", None)]
+
+        except Exception as e:
+            dispatcher.utter_message(f"Si è verificato un errore: {str(e)}")
+            return [SlotSet("operator", None)]
