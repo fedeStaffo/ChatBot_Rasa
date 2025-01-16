@@ -4,15 +4,14 @@
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/custom-actions
 
+import csv
+from typing import Any, List, Dict, Text
+from rasa_sdk import Action
+from rasa_sdk.events import SlotSet
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.interfaces import Tracker
 
 # This is a simple example for a custom action which utters "Hello World!"
-
-from typing import Any, Text, Dict, List
-import csv
-from rasa_sdk import Action, Tracker
-from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet
-
 class ActionHelloWorld(Action):
 
     def name(self) -> Text:
@@ -124,3 +123,80 @@ class ActionServiceDetail(Action):
             # Informs the user if the service was not found
             dispatcher.utter_message(text=f"Mi dispiace, non ho trovato dettagli per il servizio '{service_name}'.")
         return []
+
+class ActionSetServiceLocation(Action):
+    """
+    Action to determine the location type ('home' or 'outside') for a specified service.
+    
+    This action checks the service name provided by the user and retrieves the associated 
+    location information ('home' or specific location) from a CSV file. If the service is 
+    found, the slot 'location' is updated with the location type. If the service is outside, 
+    it asks the user to choose a specific location from a list.
+    
+    After the location is provided, the action confirms the booking if the location is 'home'.
+    If the location is outside, the user is asked to select a specific location.
+    
+    @param dispatcher: CollectingDispatcher - Sends messages back to the user.
+    @param tracker: Tracker - Tracks the conversation state and slots.
+    @param domain: Dict[Text, Any] - Contains the domain configuration.
+    
+    @return: List[Dict[Text, Any]] - A list of events to update the conversation state.
+    """
+    def name(self) -> Text:
+        """
+        Returns the name of the action.
+
+        @return: The name of the action as a string.
+        """
+        return "action_set_service_location"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Retrieves the service name from the slot
+        service_name = tracker.get_slot('service')
+        
+        # If the service is not provided, ask the user to specify it
+        if not service_name:
+            dispatcher.utter_message(text="Non ho capito quale servizio desideri. Puoi ripetere?")
+            return []
+
+        # Normalize the service name from the slot
+        service_name = service_name.lower().strip()
+        location = None
+
+        # Open the CSV file and search for the matching service
+        with open('data/csv/servizio.csv', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                # Normalize the service name from the CSV
+                csv_service_name = row['nome'].lower().strip()
+                if csv_service_name == service_name:
+                    location = row['luogo']
+                    break
+
+        # If the service is at home, confirm the booking
+        if location == "casa":
+            dispatcher.utter_message(text=f"Hai selezionato il servizio '{service_name}' a casa. Confermi?")
+            return [SlotSet("location", location)]
+
+        # If the service is outside, ask for the specific location
+        elif location:
+            locations = []
+            with open('data/csv/luoghiAncona.csv', newline='', encoding='utf-8') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if row['tipo'].lower().strip() == service_name:
+                        # Append the available locations for the service
+                        locations.append(f"{row['nome'].lower()} - {row['indirizzo']} ({row['orario']})")
+
+            # Prepare the list of locations and ask the user to choose one
+            location_list = "\n".join(locations)
+            dispatcher.utter_message(text=f"Per il servizio '{service_name}', ecco i luoghi disponibili:\n{location_list}\nDove vuoi andare?")
+            return []  # Do not set the slot yet, waiting for user input
+
+        else:
+            # If no location is found for the service, inform the user
+            dispatcher.utter_message(text=f"Mi dispiace, non ho trovato dettagli per il servizio '{service_name}'. Riprova.")
+            return []

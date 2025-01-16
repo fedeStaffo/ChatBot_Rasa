@@ -3,34 +3,43 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - affirm
+  - service_details
   - deny
+  - stop
+  - next_action
   - bot_challenge
+  # Service handling
   - service_list_info
   - service_detail
-  - next_action
+  # Booking handling
+  - new_booking
+  - service_choice
+  - provide_location
+  - confirm_booking
 
 entities:
   - service
+  - location
 
 responses:
   utter_greet:
-  - text: "Ciao! Sono ElderCare, il chatbot di assistenza per anziani. 
-  Posso aiutarti fornendo informazioni generali sulla piattaforma, 
-  sui tipi di servizi, su come effettuare una nuova prenotazione
-  o consultare lo storico dei servizi richiesti. Come posso aiutarti oggi?"
-
+  - text: "Ciao! Sono ElderCare, il chatbot di assistenza per anziani. Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi, su come effettuare una nuova prenotazione o consultare lo storico dei servizi richiesti. Come posso aiutarti oggi?"
   utter_goodbye:
   - text: "Arrivederci"
-
+  utter_deny:
+  - text: "Va bene, se hai bisogno di aiuto, sono qui."
   utter_iamabot:
   - text: "Sono un bot, creato con Rasa."
-
   utter_ask_service_detail:
   - text: "Di quale servizio vuoi sapere i dettagli?"
-
   utter_next_action:
   - text: "Cosa vuoi fare ora? Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi, su come effettuare una nuova prenotazione o consultare lo storico dei servizi richiesti."
+  utter_new_booking: 
+  - text: "Quale servizio vuoi prenotare?"
+  utter_confirm_booking:
+  - text: "Confermi la prenotazione del servizio {service} a {location}?"
+  utter_booking_confirmed:
+  - text: "Prenotazione confermata. Il servizio {service} verrà effettuato a {location}."
 
 slots:
   service:
@@ -38,14 +47,16 @@ slots:
     mappings:
       - type: from_entity
         entity: service
-  service_list:
+  location:
     type: text
     mappings:
-      - type: from_text
+      - type: from_entity
+        entity: location
 
 actions:
   - action_service_list_info
   - action_service_detail
+  - action_set_service_location
 
 session_config:
   session_expiration_time: 60

@@ -1,34 +1,47 @@
 version: "3.1"
 
 rules:
+  - rule: Saluta quando l'utente dice arrivederci
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
 
-- rule: Saluta quando l'utente dice arrivederci
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
+  - rule: Dì 'Sono un bot' quando l'utente chiede
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
 
-- rule: Dì 'Sono un bot' quando l'utente chiede
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - rule: Saluta l'utente quando dice ciao
+    steps:
+      - intent: greet
+      - action: utter_greet
 
-- rule: Saluta l'utente quando dice ciao
-  steps:
-  - intent: greet
-  - action: utter_greet
+  - rule: Rispondi quando l'utente nega
+    steps:
+      - intent: deny
+      - action: utter_deny
 
-- rule: Rispondi quando l'utente nega
-  steps:
-  - intent: deny
-  - action: utter_goodbye
+  - rule: Interrompi quello che stavi facendo se l'utente dice stop
+    steps:
+      - intent: stop
+      - action: utter_next_action
 
-- rule: Fornisci informazioni sulla lista dei servizi quando l'utente lo chiede
-  steps:
-  - intent: service_list_info
-  - action: action_service_list_info
+  - rule: Se l'utente chiede cosa fare, fornisci suggerimenti
+    steps:
+      - intent: next_action
+      - action: utter_next_action
 
+  - rule: Fornisci informazioni sulla lista dei servizi quando l'utente lo chiede
+    steps:
+      - intent: service_list_info
+      - action: action_service_list_info
 
-- rule: Fornisci dettagli sul servizio quando l'utente lo chiede
-  steps:
-  - intent: service_detail
-  - action: action_service_detail
+  - rule: Fornisci dettagli sul servizio quando l'utente lo chiede
+    steps:
+      - intent: service_detail
+      - action: action_service_detail
+
+  - rule: Quando l'utente lo chiede, conferma la prenotazione
+    steps:
+      - intent: confirm_booking
+      - action: utter_booking_confirmed

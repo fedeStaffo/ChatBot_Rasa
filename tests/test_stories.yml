@@ -2,77 +2,6 @@
 #### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
 
 stories:
-- story: happy path 1
-  steps:
-  - user: |
-      ciao
-    intent: greet
-  - action: utter_greet
-  - user: |
-      fantastico
-    intent: affirm
-  - action: utter_happy
-
-- story: happy path 2
-  steps:
-  - user: |
-      ciao
-    intent: greet
-  - action: utter_greet
-  - user: |
-      fantastico
-    intent: affirm
-  - action: utter_happy
-  - user: |
-      arrivederci
-    intent: goodbye
-  - action: utter_goodbye
-
-- story: sad path 1
-  steps:
-  - user: |
-      ciao
-    intent: greet
-  - action: utter_greet
-  - user: |
-      non va bene
-    intent: mood_unhappy
-  - action: utter_did_that_help
-  - user: |
-      sì
-    intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - user: |
-      ciao
-    intent: greet
-  - action: utter_greet
-  - user: |
-      non va bene
-    intent: mood_unhappy
-  - action: utter_did_that_help
-  - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
-
-- story: sad path 3
-  steps:
-  - user: |
-      ciao
-    intent: greet
-  - action: utter_greet
-  - user: |
-      molto male
-    intent: mood_unhappy
-  - action: utter_did_that_help
-  - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
-
 - story: say goodbye
   steps:
   - user: |
@@ -87,22 +16,34 @@ stories:
     intent: bot_challenge
   - action: utter_iamabot
 
-- story: provide service info
+- story: provide service list info
   steps:
   - user: |
-      Vorrei informazioni sui servizi
-    intent: service_info
-  - action: action_service_info
+      vorrei informazioni sui servizi
+    intent: service_list_info
+  - action: action_service_list_info
   - user: |
       sì
-    intent: affirm
+    intent: service_details
   - action: utter_ask_service_detail
   - user: |
       cucinare
-    intent: inform
+    intent: service_detail
   - action: action_service_detail
-  - action: utter_next_action
   - user: |
       cosa posso fare ora?
     intent: next_action
-  - action: utter_greet
+  - action: utter_next_action
+
+- story: service booking
+  steps:
+  - user: |
+      voglio prenotare un servizio
+    intent: new_booking
+  - action: utter_new_booking
+  - user: |
+      voglio prenotare il servizio spesa
+    intent: service_choice
+    entities:
+      - service: spesa
+  - action: utter_print_service

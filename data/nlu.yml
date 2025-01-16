@@ -23,17 +23,11 @@ nlu:
     - buonanotte
     - alla prossima
 
-- intent: affirm
+- intent: service_details
   examples: |
-    - sì
-    - certo
-    - ovviamente
-    - esatto
-    - confermo
-    - sicuramente
-    - assolutamente
-    - decisamente
-    - va bene
+    - dammi maggiori dettagli sui servizi
+    - voglio una spiegazione di un servizio
+    - spiegami come funzionano i servizi
 
 - intent: deny
   examples: |
@@ -54,6 +48,16 @@ nlu:
     - sto parlando con un umano?
     - sei un robot?
     - sei una persona?
+
+- intent: stop
+  examples: |
+    - stop
+    - basta
+    - non voglio continuare
+    - non voglio continuare a parlare
+    - non voglio continuare la conversazione
+    - non voglio continuare a parlare con te
+    - non voglio parlare con te
 
 - intent: service_list_info
   examples: |
@@ -96,3 +100,31 @@ nlu:
     - cosa posso fare adesso?
     - quali sono le altre opzioni?
     - cosa posso fare dopo?
+
+- intent: new_booking
+  examples: |
+    - voglio prenotare un servizio
+    - voglio effettuare una nuova prenotazione
+    - posso prenotare un servizio?
+    - ho bisogno di fare una prenotazione
+
+- intent: service_choice
+  examples: |
+    - voglio prenotare il servizio [spesa](service)
+    - mi interessa il servizio [shopping](service)
+    - vorrei un aiuto per [cucinare](service)
+    - puoi prenotarmi una [assistenza medica](service)?
+
+- intent: provide_location
+  examples: |
+    - voglio andare al [conad adriatico](location)
+    - mi serve un passaggio per [pam panorama](location)
+    - vorrei fare una passeggiata al [passetto](location)
+    - devo andare alla [farmacia comunale](location) 
+
+- intent: confirm_booking
+  examples: |
+    - confermo la prenotazione
+    - sì, confermo
+    - va bene, confermo
+    - confermo la prenotazione del servizio

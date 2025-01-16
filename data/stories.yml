@@ -10,18 +10,31 @@ stories:
 - story: user denies help
   steps:
     - intent: deny
-    - action: utter_goodbye
+    - action: utter_deny
 
 - story: provide service list info
   steps:
     - intent: service_list_info
     - action: action_service_list_info
-    - intent: affirm
+    - intent: service_details
     - action: utter_ask_service_detail
 
 - story: provide service detail
   steps:
     - intent: service_detail
     - action: action_service_detail
-    - intent: next_action
-    - action: utter_next_action
+
+- story: new booking
+  steps:
+    - intent: new_booking
+    - action: utter_new_booking
+    - intent: service_choice
+      entities:
+        - service
+    - action: action_set_service_location
+    - intent: provide_location
+      entities:
+        - location
+    - action: utter_confirm_booking 
+    - intent: confirm_booking 
+    - action: utter_booking_confirmed
