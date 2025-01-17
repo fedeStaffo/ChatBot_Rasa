@@ -183,3 +183,31 @@ nlu:
     - sì, confermo
     - va bene, confermo
     - confermo la prenotazione del servizio
+
+- intent: app_detail
+  examples: |
+    - voglio sapere di più sul EldenCare
+    - cosa è EldenCare?
+    - non ho mai sentito parlare di EldenCare
+
+- intent: history_app_detail
+  examples: |
+    - da chi sei stato creato?
+    - chi sono i tuoi inventori?
+    - quando sei nato?
+    - chi è tuo padre?
+
+- intent: operator_app_detail
+  examples: |
+    - davvero non si paga?
+    - gli operatori sono dei volontari?
+    - chi sono gli operatori?
+    - perché gli operatori lo fanno?
+
+- intent: security_app_detail
+  examples: |
+    - come posso essere sicuro che il volontario non sia un truffatore?
+    - come posso fidarmi di un volontario?
+    - ho paura ha lasciare mia madre con uno sconosciuto
+    - ma se mi rubasse qualcosa?
+    - ma se colpisce l'anziano?

@@ -8,6 +8,11 @@ intents:
   - next_action
   - bot_challenge
   # Service info handling
+  - app_detail
+  - history_app_detail
+  - operator_app_detail
+  - security_app_detail
+  # Service info handling
   - service_list_info
   - service_detail
   # Booking handling
@@ -59,6 +64,14 @@ responses:
   - text: "Confermi la prenotazione del servizio {service} presso {location} con le preferenze espresse per la fascia oraria {time}?"
   utter_booking_confirmed:
   - text: "Prenotazione confermata! Grazie per aver scelto ElderCare."
+  utter_app_detail:
+  - text: "EldenCare è un'app nata per assistere gli anziani che rimangono da soli. Per evitare ciò è possibile effettuare una prenotazione di vari servizi di assistenza che verrà poi accettata da un nostro volontario. Questi ragazzi svolgono tale compito senza alcuna remunerazione economica mettendo il benessere comune al primo posto."
+  utter_history_app_detail:
+  - text: "Sono stata sviluppata da un team di studenti del corso di Ingegneria informatica dell'università politecnica delle Marche. Il progetto è stato realizzato nell'ambito del corcorso HACK-AI-TON 2024."
+  utter_operator_app_detail:
+  - text: "Gli operatori sono volontari che si offrono di assistere gli anziani che rimangono da soli, quindi non sono previsti costi per chi richiede il servizio. Questi ragazzi svolgono tale compito senza alcuna remunerazione economica. Tuttavia al raggiungimento di un determinato numero di ore, ricevono buoni pasto e sconti presso vari negozi"
+  utter_security_app_detail:
+  - text: "Per garantire la sicurezza degli anziani, gli operatori vengono sottoposti a controlli preventivi ed è necessario fornire tutti i documenti necessari. Inoltre, è possibile visualizzare le recensioni degli operatori e lasciare la propria valutazione dopo l'intervento. Qualora sorgessero dei problemi non esitate a contattarci, siamo sempre a disposizione per risolvere qualsiasi problema."
 
 slots:
   service:

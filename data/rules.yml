@@ -50,3 +50,23 @@ rules:
     steps:
       - intent: confirm_booking
       - action: utter_booking_confirmed
+  
+  - rule: Fornisci informazioni sulla applicazione quando l'utente lo chiede
+    steps:
+      - intent: app_detail
+      - action: utter_app_detail
+
+  - rule: Fornisci informazioni sulla storia dell'applicazione quando l'utente lo chiede
+    steps:
+      - intent: history_app_detail
+      - action: utter_history_app_detail
+
+  - rule: Fornisci informazioni sugli operatori dell'applicazione quando l'utente lo chiede
+    steps:
+      - intent: operator_app_detail
+      - action: utter_operator_app_detail
+
+  - rule: Fornisci rassicurazioni sugli operatori quando l'utente lo chiede
+    steps:
+      - intent: security_app_detail
+      - action: utter_security_app_detail
