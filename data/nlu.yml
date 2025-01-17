@@ -52,6 +52,7 @@ nlu:
     - non voglio continuare la conversazione
     - non voglio continuare a parlare con te
     - non voglio parlare con te
+    - grazie, ma ho finito adesso
 
 - intent: service_list_info
   examples: |
@@ -65,27 +66,37 @@ nlu:
 
 - intent: service_detail
   examples: |
-    - voglio sapere di più sul servizio [spesa](service)
+    - voglio sapere di più sul servizio [fare la spesa](service)
     - mi interessa il servizio [fare la spesa](service)
     - vorrei dettagli su [cucinare](service)
     - puoi dirmi di più su [assistenza medica](service)
     - hai informazioni su [passeggiate](service)
+    - cosa mi puoi dire riguardo il [fare la spesa](service)
 
 - synonym: spesa
   examples: |
-    - fare la spesa
+    - acquistare del cibo
     - acquisti
     - shopping alimentare
+    - andare a comprare i viveri
+    - andare a prendere del cibo
 
 - synonym: cucinare
   examples: |
     - preparare da mangiare
     - fare da mangiare
+    - impastare
+    - aiuto in cucina
+    - preparare i pasti
 
 - synonym: passeggiata
   examples: |
     - camminare
     - camminata
+    - corsetta
+    - andare a fare 4 passi
+    - giretto in giro
+    - sgambettare
 
 - intent: next_action
   examples: |
@@ -94,6 +105,8 @@ nlu:
     - cosa posso fare adesso?
     - quali sono le altre opzioni?
     - cosa posso fare dopo?
+    - adesso cosa posso fare?
+    - quindi, cosa posso fare?
 
 - intent: new_booking
   examples: |
@@ -101,13 +114,19 @@ nlu:
     - voglio effettuare una nuova prenotazione
     - posso prenotare un servizio?
     - ho bisogno di fare una prenotazione
+    - nuova prenotazione
+    - mi serve aiuto con i miei genitori
+    - per fare una prenotazione, cosa devo fare? 
 
 - intent: service_choice
   examples: |
-    - voglio prenotare il servizio [spesa](service)
-    - mi interessa il servizio [shopping](service)
+    - voglio prenotare il servizio [fare la spesa](service)
+    - mi interessa il servizio [fare shopping](service)
     - vorrei un aiuto per [cucinare](service)
-    - puoi prenotarmi una [assistenza medica](service)?
+    - hai disponibilità per [passeggiata](service)?
+    - posso prenotare un [visita medica](service)?
+    - mi serve qualcuno per [fare la spesa](service)
+    - vorrei qualcuno con cui [parlare](service)
 
 - intent: provide_location
   examples: |
@@ -115,6 +134,9 @@ nlu:
     - mi serve un passaggio per [pam panorama](location)
     - vorrei fare una passeggiata al [passetto](location)
     - devo andare alla [farmacia comunale](location) 
+    - mi serve un aiuto per andare al [Lidl Ancona](location)
+    - devo rinnovare la carta d'identità in [Comune di Ancona](location)
+    - ho bisogno di andare a ritirare la pensione alle [Ufficio Postale Ancona Sud](location)
 
 - intent: provide_preference_sex
   examples: |
@@ -123,18 +145,25 @@ nlu:
     - preferisco un operatore [m](sex)
     - preferisco un'operatrice [f](sex)
     - mi va bene sia m che [f](sex)
+    - indifferente
+    - non ho preferenze
 
 - synonym: maschio
   examples: |
     - uomo
     - maschile
     - m
+    - maschietto
+    - ragazzo
+    - signore
 
 - synonym: femmina
   examples: |
     - donna
     - femminile
     - f
+    - ragazza
+    - signora
 
 - intent: provide_preference_car
   examples: |
@@ -142,12 +171,18 @@ nlu:
     - [no](car) non è necessario
     - [si](car) voglio un operatore con auto
     - [no](car) non serve che l'operatore abbia un'auto
+    - [no](car) niente auto
+    - [no](car) non auto
+    - [si](car) mi serve un mezzo con cui spostarmi
+    - [si](car) preferisco un operatore che abbia un'auto
 
 - synonym: auto
   examples: |
     - macchina
     - vettura
     - automobile
+    - veicolo
+    - mezzo
 
 - intent: provide_preference_medical_skills
   examples: |
@@ -155,6 +190,11 @@ nlu:
     - [no](med) non ho bisogno di competenze mediche
     - [si](med) voglio un operatore con competenze mediche
     - [no](med) non servono competenze mediche
+    - [no](med) l'anziano sta bene
+    - [no](med) non è necessario
+    - [si](med) serve assistenza medica
+    - [si](med) non è in buone condizioni, mi serve aiuto 
+
 
 #- intent: provide_preference_language
 #  examples: |
@@ -169,6 +209,9 @@ nlu:
     - vorrei l'intervento tra le [14:00 e le 16:00](time)
     - preferisco la [sera](time)
     - vorrei il [pomeriggio](time)
+    - dalle [10:00 alle 12:00](time)
+    - preferisco la [mattina](time)
+    - la [sera](time) usciamo
 
 - intent: confirm_operator
   examples: |
@@ -183,12 +226,15 @@ nlu:
     - sì, confermo
     - va bene, confermo
     - confermo la prenotazione del servizio
+    - perfetto così
 
 - intent: app_detail
   examples: |
     - voglio sapere di più sul EldenCare
     - cosa è EldenCare?
     - non ho mai sentito parlare di EldenCare
+    - parlami dell'applicazione
+    - Elden cosa?
 
 - intent: history_app_detail
   examples: |
@@ -196,6 +242,7 @@ nlu:
     - chi sono i tuoi inventori?
     - quando sei nato?
     - chi è tuo padre?
+    - chi ha creato EldenCare?
 
 - intent: operator_app_detail
   examples: |
@@ -203,11 +250,12 @@ nlu:
     - gli operatori sono dei volontari?
     - chi sono gli operatori?
     - perché gli operatori lo fanno?
+    - gli operatori lavora gratis davvero?
 
 - intent: security_app_detail
   examples: |
-    - come posso essere sicuro che il volontario non sia un truffatore?
-    - come posso fidarmi di un volontario?
-    - ho paura ha lasciare mia madre con uno sconosciuto
-    - ma se mi rubasse qualcosa?
+    - come posso essere sicuro che il operatore non sia un truffatore?
+    - come posso fidarmi di un operatore?
+    - ho paura a lasciare mia madre con uno sconosciuto
+    - ma se mi rubasse qualcosa mentre non ci sono?
     - ma se colpisce l'anziano?

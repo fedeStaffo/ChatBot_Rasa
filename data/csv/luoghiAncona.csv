@@ -1,18 +1,18 @@
 nome,tipo,indirizzo,orario
-Sì con te Tavernelle,spesa,Via B.Da Sassoferrato 1,08:00-20:30
-Conad Adriatico,spesa,Via delle Grazie 14,07:30-21:00
-Carrefour Market,spesa,Piazza Ugo Bassi 3,08:00-22:00
-Tigre Supermercato,spesa,Via Montebello 1,08:00-20:00
-Eurospin Ancona,spesa,Via Grandi 22,08:30-20:30
-Lidl Ancona,spesa,Via della Montagnola 72,08:00-21:00
-Coop Ancona,spesa,Via Tavernelle 100,08:00-21:00
-Mercato delle Erbe,spesa,Piazza D'Armi,07:00-14:00
-Simply Market,spesa,Via Marconi 45,08:00-20:00
-Pam Panorama,spesa,Via Giordano Bruno 25,08:00-21:00
-Bottega del Pane,spesa,Via Marconi 12,07:00-19:00
-Alimentari Rossi,spesa,Via Giordano Bruno 45,08:00-20:00
-Supermercato Sì,spesa,Via Flaminia 100,08:00-21:00
-NaturaSì,spesa,Via Martiri della Resistenza 30,09:00-20:00
+Sì con te Tavernelle,fare la spesa,Via B.Da Sassoferrato 1,08:00-20:30
+Conad Adriatico,fare la spesa,Via delle Grazie 14,07:30-21:00
+Carrefour Market,fare la spesa,Piazza Ugo Bassi 3,08:00-22:00
+Tigre Supermercato,fare la spesa,Via Montebello 1,08:00-20:00
+Eurospin Ancona,fare la spesa,Via Grandi 22,08:30-20:30
+Lidl Ancona,fare la spesa,Via della Montagnola 72,08:00-21:00
+Coop Ancona,fare la spesa,Via Tavernelle 100,08:00-21:00
+Mercato delle Erbe,fare la spesa,Piazza D'Armi,07:00-14:00
+Simply Market,fare la spesa,Via Marconi 45,08:00-20:00
+Pam Panorama,fare la spesa,Via Giordano Bruno 25,08:00-21:00
+Bottega del Pane,fare la spesa,Via Marconi 12,07:00-19:00
+Alimentari Rossi,fare la spesa,Via Giordano Bruno 45,08:00-20:00
+Supermercato Sì,fare la spesa,Via Flaminia 100,08:00-21:00
+NaturaSì,fare la spesa,Via Martiri della Resistenza 30,09:00-20:00
 Parco del Cardeto,passeggiata,Via Cardeto 1,06:00-23:00
 Parco Belvedere,passeggiata,Via Belvedere 1,06:00-23:00
 Parco degli Ulivi,passeggiata,Via degli Ulivi 2,06:00-23:00
@@ -44,16 +44,16 @@ Villa Serena,visita parenti,Via Isonzo 29,08:00-20:00
 Residenza Protetta San Giuseppe,visita parenti,Via San Giuseppe 12,09:00-19:00
 Villa Almagià,visita parenti,Via Ascoli Piceno 8,09:00-19:00
 RSA L’Ancora,visita parenti,Via del Commercio 15,08:30-18:30
-Galleria Dorica,shopping,Corso Garibaldi 27,09:00-21:00
-Auchan Conero,shopping,Via Scataglini 6,09:00-22:00
-Centro Commerciale Mirum,shopping,Via Scataglini 8,09:00-21:00
-Centro Commerciale Cargopier,shopping,Via Scataglini 10,09:00-21:00
-La Gru,shopping,Via Enrico Mattei 32,09:00-21:00
-Corso Mazzini,shopping,Corso Mazzini,10:00-20:00
-Via Lata,shopping,Via Lata,09:30-19:30
-Via XXIX Settembre,shopping,Via XXIX Settembre,10:00-20:00
-Via Carducci,shopping,Via Carducci,10:00-20:00
-Via Giordano Bruno,shopping,Via Giordano Bruno,09:30-19:30
+Galleria Dorica,fare shopping,Corso Garibaldi 27,09:00-21:00
+Auchan Conero,fare shopping,Via Scataglini 6,09:00-22:00
+Centro Commerciale Mirum,fare shopping,Via Scataglini 8,09:00-21:00
+Centro Commerciale Cargopier,fare shopping,Via Scataglini 10,09:00-21:00
+La Gru,fare shopping,Via Enrico Mattei 32,09:00-21:00
+Corso Mazzini,fare shopping,Corso Mazzini,10:00-20:00
+Via Lata,fare shopping,Via Lata,09:30-19:30
+Via XXIX Settembre,fare shopping,Via XXIX Settembre,10:00-20:00
+Via Carducci,fare shopping,Via Carducci,10:00-20:00
+Via Giordano Bruno,fare shopping,Via Giordano Bruno,09:30-19:30
 Comune di Ancona,servizi pubblici,Piazza XXIV Maggio 1,08:30-13:30
 Comune di Ancona - Ufficio Anagrafe,servizi pubblici,Via Frediani 3,08:30-13:30
 Comune di Ancona - Ufficio Tecnico,servizi pubblici,Via Frediani 5,08:30-13:30
