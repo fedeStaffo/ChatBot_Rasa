@@ -6,7 +6,7 @@ ElderCare is a chatbot designed to assist elderly users or their caregivers by p
 
 ### Setting up a Virtual Environment
 
-1. Ensure you have Python 3.9.13 installed. You can download it from [python.org](https://www.python.org/).
+1. Ensure you have Python 3.9.13 installed. You can download it from [python.org](https://www.python.org/downloads/release/python-3913/).
 2. Verify the installed versions:
     ```sh
     py -0
