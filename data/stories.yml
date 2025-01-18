@@ -33,10 +33,6 @@ stories:
     - intent: provide_location
       entities:
         - location
-    - action: utter_ask_sex_preference
-    - intent: provide_preference_sex
-      entities:
-        - sex
     - action: utter_ask_car_preference
     - intent: provide_preference_car
       entities:

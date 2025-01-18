@@ -1,13 +1,13 @@
 nome,luogo,descrizione
-cucinare,casa,"Il servizio fornisce assistenza nella preparazione di pasti o bevande sia per l'anziano che per aiutarlo a stupire i suoi ospiti. I nostri operatori non sono grandi chef quindi 
-parlare,casa,"Tenere compagnia all'anziano semplicemente scambiando qualche parola. Può contribuire a far sentire meno soli gli anziani."
-giocare,casa,"Tenere compagnia all'anziano semplicemente divertendosi con qualche gioco. I nostri operatori possono sia spiegare un nuovo gioco all'anziano che impararne uno da lui."
-leggere,casa,"Tenere compagnia all'anziano leggendo qualcosa. Può essere un libro, un giornale o una lettera. È un servizio pensato per chi non ha una buona vista e non vuole abbandonare il piacere di una sana lettura"
-assistenza medica,casa,"Il servizio fornisce assistenza medica di primo livello in casa. I nostri operatori non sono medici ma possono aiutare l'anziano a prendere la sua medicina o a misurare la pressione."
-sicurezza,casa,"Il servizio fornisce protezione per tenere gli anziani al sicuro. I nostri operatori possono aiutare l'anziano a muoversi in casa o ad evitare situazioni pericolose."
-fare la spesa,fuori,"I nostri operatori possono sia accompagnare l'anziano a fare la spesa per gli anziani che fare la spesa al posto loro. In quest'ultimo caso l'anziano dovrà fornire una lista della spesa."
-passeggiata,fuori,"I nostri operatori possono accompagnare gli anziani durante la passeggiata. Può essere un giro in centro, al parco o al mare. I nostri operatori possono aiutare l'anziano a muoversi o ad evitare situazioni pericolose"
-visita medica,fuori,"I nostri operatori possono accompagnare gli anziani ai vari ambulatori o ospedali e rimanere con loro qualora sopraggiungono imprevisti o lunghe attese "
-visita parenti,fuori,"I nostri operatori possono accompagnare gli anziani a visitare i vari parenti. In questo modo l'anziano può trascorrere del tempo con i suoi cari senza preoccuparsi di come arrivare a destinazione."
-fare shopping,fuori,"I nostri operatori possono accompagnare gli anziani per vari negozi. In questo modo l'anziano può fare shopping senza preoccuparsi di come arrivarci o di come trasportare i vari acquisti."
-servizi pubblici,fuori,"I nostri operatori possono accompagnare gli anziani alle poste o agli uffici pubblici. In questo modo l'anziano può sbrigare le sue pratiche senza preoccuparsi di come affrontare le varie code o le varie pratiche."
+cucinare,casa,Il servizio fornisce assistenza nella preparazione di pasti o bevande sia per l'anziano che per aiutarlo a stupire i suoi ospiti.
+parlare,casa,Tenere compagnia all'anziano semplicemente scambiando qualche parola. Può contribuire a far sentire meno soli gli anziani.
+giocare,casa,Tenere compagnia all'anziano semplicemente divertendosi con qualche gioco. I nostri operatori possono sia spiegare un nuovo gioco all'anziano che impararne uno da lui.
+leggere,casa,Tenere compagnia all'anziano leggendo qualcosa. Può essere un libro o un giornale o una lettera. È un servizio pensato per chi non ha una buona vista e non vuole abbandonare il piacere di una sana lettura.
+assistenza medica,casa,Il servizio fornisce assistenza medica di primo livello in casa. I nostri operatori non sono medici ma possono aiutare l'anziano a prendere la sua medicina o a misurare la pressione.
+sicurezza,casa,Il servizio fornisce protezione per tenere gli anziani al sicuro. I nostri operatori possono aiutare l'anziano a muoversi in casa o ad evitare situazioni pericolose.
+fare la spesa,fuori,I nostri operatori possono sia accompagnare l'anziano a fare la spesa per gli anziani che fare la spesa al posto loro. In quest'ultimo caso l'anziano dovrà fornire una lista della spesa.
+passeggiata,fuori,I nostri operatori possono accompagnare gli anziani durante la passeggiata. Può essere un giro in centro oppure al parco. I nostri operatori possono aiutare l'anziano a muoversi o ad evitare situazioni pericolose.
+visita medica,fuori,I nostri operatori possono accompagnare gli anziani ai vari ambulatori o ospedali e rimanere con loro qualora sopraggiungono imprevisti o lunghe attese.
+visita parenti,fuori,I nostri operatori possono accompagnare gli anziani a visitare i vari parenti. In questo modo l'anziano può trascorrere del tempo con i suoi cari senza preoccuparsi di come arrivare a destinazione.
+fare shopping,fuori,I nostri operatori possono accompagnare gli anziani per vari negozi. In questo modo l'anziano può fare shopping senza preoccuparsi di come arrivarci o di come trasportare i vari acquisti.
+servizi pubblici,fuori,I nostri operatori possono accompagnare gli anziani alle poste o agli uffici pubblici. In questo modo l'anziano può sbrigare le sue pratiche senza preoccuparsi di come affrontare le varie code o le varie pratiche.

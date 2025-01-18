@@ -138,33 +138,6 @@ nlu:
     - devo rinnovare la carta d'identità in [Comune di Ancona](location)
     - ho bisogno di andare a ritirare la pensione alle [Ufficio Postale Ancona Sud](location)
 
-- intent: provide_preference_sex
-  examples: |
-    - vorrei un [maschio](sex)
-    - vorrei una [femmina](sex)
-    - preferisco un operatore [m](sex)
-    - preferisco un'operatrice [f](sex)
-    - mi va bene sia m che [f](sex)
-    - indifferente
-    - non ho preferenze
-
-- synonym: maschio
-  examples: |
-    - uomo
-    - maschile
-    - m
-    - maschietto
-    - ragazzo
-    - signore
-
-- synonym: femmina
-  examples: |
-    - donna
-    - femminile
-    - f
-    - ragazza
-    - signora
-
 - intent: provide_preference_car
   examples: |
     - [si](car) preferisco un operatore con auto
@@ -194,7 +167,6 @@ nlu:
     - [no](med) non è necessario
     - [si](med) serve assistenza medica
     - [si](med) non è in buone condizioni, mi serve aiuto 
-
 
 #- intent: provide_preference_language
 #  examples: |
@@ -230,11 +202,11 @@ nlu:
 
 - intent: app_detail
   examples: |
-    - voglio sapere di più sul EldenCare
-    - cosa è EldenCare?
-    - non ho mai sentito parlare di EldenCare
+    - voglio sapere di più sul ElderCare
+    - cosa è ElderCare?
+    - non ho mai sentito parlare di ElderCare
     - parlami dell'applicazione
-    - Elden cosa?
+    - Elder cosa?
 
 - intent: history_app_detail
   examples: |
@@ -242,7 +214,7 @@ nlu:
     - chi sono i tuoi inventori?
     - quando sei nato?
     - chi è tuo padre?
-    - chi ha creato EldenCare?
+    - chi ha creato ElderCare?
 
 - intent: operator_app_detail
   examples: |

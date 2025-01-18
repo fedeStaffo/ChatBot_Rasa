@@ -239,7 +239,6 @@ class ActionFindAvailableOperator(Action):
         Finds an available operator based on user preferences and time slot.
         """
         # Retrieve user preferences from slots
-        sex = tracker.get_slot("sex")  # e.g., 'M' or 'F'
         car = tracker.get_slot("car")  # e.g., 'si' or 'no'
         med = tracker.get_slot("med")  # e.g., 'si' or 'no'
         #language = tracker.get_slot("language")  # e.g., 'inglese'
@@ -254,8 +253,7 @@ class ActionFindAvailableOperator(Action):
                 reader = csv.DictReader(file)
                 for row in reader:
                     # Check if operator meets all preferences
-                    if (row['sesso'] == sex or sex is None) and \
-                            (row['automunito'] == car or car is None) and \
+                    if (row['automunito'] == car or car is None) and \
                             (row['linguaggi'] == language or language is None) and \
                             (row['competenze_mediche'] == med or med is None):
 
