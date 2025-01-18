@@ -7,6 +7,18 @@ stories:
     - intent: greet
     - action: utter_greet
 
+- story: mood happy
+  steps:
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+
 - story: user denies help
   steps:
     - intent: deny
@@ -21,41 +33,6 @@ stories:
   steps:
     - intent: service_detail
     - action: action_service_detail
-
-- story: new booking with preferences
-  steps:
-    - intent: new_booking
-    - action: utter_new_booking
-    - intent: service_choice
-      entities:
-        - service
-    - action: action_set_service_location
-    - intent: provide_location
-      entities:
-        - location
-    - action: utter_ask_car_preference
-    - intent: provide_preference_car
-      entities:
-        - car
-    - action: utter_ask_medical_skills_preference
-    - intent: provide_preference_medical_skills
-      entities:
-        - med
-    #- action: utter_ask_language_preference
-    #- intent: provide_preference_language
-    #  entities:
-    #    - language
-    - action: utter_ask_time_preference
-    - intent: provide_preference_time
-      entities:
-        - time
-    - action: action_find_available_operator
-    - intent: confirm_operator
-      entities:
-        - operator
-    - action: utter_confirm_booking
-    - intent: confirm_booking
-    - action: utter_booking_confirmed
 
 - story: provide app detail
   steps:
@@ -76,3 +53,38 @@ stories:
   steps:
     - intent: security_app_detail
     - action: utter_security_app_detail
+
+- story: service booking
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: request_booking_form
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - requested_slot: service
+  - slot_was_set:
+    - service: cucinare
+  - slot_was_set:
+    - requested_slot: location
+  - slot_was_set:
+    - location: casa
+  - slot_was_set:
+    - requested_slot: car
+  - slot_was_set:
+    - car: true
+  - slot_was_set:
+    - requested_slot: med
+  - slot_was_set:
+    - med: true
+  - slot_was_set:
+    - requested_slot: time
+  - slot_was_set:
+    - time: 10:00-12:00
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: utter_booking_result
+  - intent: goodbye
+  - action: utter_goodbye

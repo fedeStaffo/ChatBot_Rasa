@@ -41,16 +41,6 @@ rules:
       - intent: service_detail
       - action: action_service_detail
   
-  - rule: Quando l'utente conferma l'operatore, chiedi conferma della prenotazione
-    steps:
-      - intent: confirm_operator
-      - action: utter_confirm_booking
-
-  - rule: Quando l'utente lo chiede, conferma la prenotazione
-    steps:
-      - intent: confirm_booking
-      - action: utter_booking_confirmed
-  
   - rule: Fornisci informazioni sulla applicazione quando l'utente lo chiede
     steps:
       - intent: app_detail
@@ -70,3 +60,32 @@ rules:
     steps:
       - intent: security_app_detail
       - action: utter_security_app_detail
+  
+  - rule: Attiva il form della prenotazione del servizio
+    steps:
+    - intent: request_booking_form
+    - action: booking_form
+    - active_loop: booking_form
+
+  - rule: Manda il form della prenotazione del servizio
+    condition:
+    - active_loop: booking_form
+    steps:
+    - action: booking_form
+    - active_loop: null
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_submit
+    - action: utter_booking_result
+
+  - rule: Interruzione nel form della prenotazione
+    condition:
+    # Condition that form is active.
+    - active_loop: booking_form
+    steps:
+    # This unhappy path handles the case of an intent `bot_challenge`.
+    - intent: bot_challenge
+    - action: utter_iamabot
+    # Return to form after handling the `bot_challenge` intent
+    - action: booking_form
+    - active_loop: booking_form

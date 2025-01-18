@@ -23,16 +23,59 @@ nlu:
     - buonanotte
     - alla prossima
 
+- intent: affirm
+  examples: |
+    - sì
+    - s
+    - proprio così
+    - naturalmente
+    - suona bene
+    - corretto
+    - /affermare
+
 - intent: deny
   examples: |
     - no
-    - assolutamente no
-    - niente affatto
+    - n
+    - mai
     - non credo
     - non mi piace
-    - non voglio
-    - non sono d'accordo
-    - non sono sicuro
+    - assolutamente no
+    - non proprio
+
+- intent: mood_great
+  examples: |
+    - perfetto
+    - fantastico
+    - incredibile
+    - mi sento come un re
+    - meraviglioso
+    - mi sento molto bene
+    - sto benissimo
+    - sono fantastico
+    - sto per salvare il mondo
+    - super entusiasta
+    - estremamente bene
+    - così perfetto
+    - così buono
+    - così perfetto
+
+- intent: mood_unhappy
+  examples: |
+    - la mia giornata è stata orribile
+    - sono triste
+    - non mi sento molto bene
+    - sono deluso
+    - super triste
+    - sono così triste
+    - triste
+    - molto triste
+    - infelice
+    - non bene
+    - non molto bene
+    - estremamente triste
+    - sono tanto triste
+    - sono così triste
 
 - intent: bot_challenge
   examples: |
@@ -71,9 +114,9 @@ nlu:
     - vorrei dettagli su [cucinare](service)
     - puoi dirmi di più su [assistenza medica](service)
     - hai informazioni su [passeggiate](service)
-    - cosa mi puoi dire riguardo il [fare la spesa](service)
+    - cosa mi puoi dire riguardo il fare la [fare la spesa](service)
 
-- synonym: spesa
+- synonym: fare la spesa
   examples: |
     - acquistare del cibo
     - acquisti
@@ -98,6 +141,60 @@ nlu:
     - giretto in giro
     - sgambettare
 
+- synonym: parlare
+  examples: |
+    - chiacchierare
+    - conversare
+    - fare due chiacchiere
+
+- synonym: giocare
+  examples: |
+    - giocare a carte
+    - fare un gioco
+    - giocare a scacchi
+
+- synonym: leggere
+  examples: |
+    - leggere un libro
+    - leggere un giornale
+    - leggere una lettera
+
+- synonym: assistenza medica
+  examples: |
+    - aiuto medico
+    - assistenza sanitaria
+    - cura medica
+
+- synonym: sicurezza
+  examples: |
+    - protezione
+    - sicurezza in casa
+    - aiuto per la sicurezza
+
+- synonym: visita medica
+  examples: |
+    - appuntamento medico
+    - visita dal dottore
+    - controllo medico
+
+- synonym: visita parenti
+  examples: |
+    - visita ai parenti
+    - andare dai parenti
+    - visita ai familiari
+
+- synonym: fare shopping
+  examples: |
+    - fare acquisti
+    - andare a fare shopping
+    - comprare
+
+- synonym: servizi pubblici
+  examples: |
+    - uffici pubblici
+    - andare agli uffici
+    - servizi amministrativi
+
 - intent: next_action
   examples: |
     - cosa posso fare ora?
@@ -108,7 +205,7 @@ nlu:
     - adesso cosa posso fare?
     - quindi, cosa posso fare?
 
-- intent: new_booking
+- intent: request_booking_form
   examples: |
     - voglio prenotare un servizio
     - voglio effettuare una nuova prenotazione
@@ -117,88 +214,6 @@ nlu:
     - nuova prenotazione
     - mi serve aiuto con i miei genitori
     - per fare una prenotazione, cosa devo fare? 
-
-- intent: service_choice
-  examples: |
-    - voglio prenotare il servizio [fare la spesa](service)
-    - mi interessa il servizio [fare shopping](service)
-    - vorrei un aiuto per [cucinare](service)
-    - hai disponibilità per [passeggiata](service)?
-    - posso prenotare un [visita medica](service)?
-    - mi serve qualcuno per [fare la spesa](service)
-    - vorrei qualcuno con cui [parlare](service)
-
-- intent: provide_location
-  examples: |
-    - voglio andare al [conad adriatico](location)
-    - mi serve un passaggio per [pam panorama](location)
-    - vorrei fare una passeggiata al [passetto](location)
-    - devo andare alla [farmacia comunale](location) 
-    - mi serve un aiuto per andare al [Lidl Ancona](location)
-    - devo rinnovare la carta d'identità in [Comune di Ancona](location)
-    - ho bisogno di andare a ritirare la pensione alle [Ufficio Postale Ancona Sud](location)
-
-- intent: provide_preference_car
-  examples: |
-    - [si](car) preferisco un operatore con auto
-    - [no](car) non è necessario
-    - [si](car) voglio un operatore con auto
-    - [no](car) non serve che l'operatore abbia un'auto
-    - [no](car) niente auto
-    - [no](car) non auto
-    - [si](car) mi serve un mezzo con cui spostarmi
-    - [si](car) preferisco un operatore che abbia un'auto
-
-- synonym: auto
-  examples: |
-    - macchina
-    - vettura
-    - automobile
-    - veicolo
-    - mezzo
-
-- intent: provide_preference_medical_skills
-  examples: |
-    - [si](med) ho bisogno di un operatore con competenze mediche
-    - [no](med) non ho bisogno di competenze mediche
-    - [si](med) voglio un operatore con competenze mediche
-    - [no](med) non servono competenze mediche
-    - [no](med) l'anziano sta bene
-    - [no](med) non è necessario
-    - [si](med) serve assistenza medica
-    - [si](med) non è in buone condizioni, mi serve aiuto 
-
-#- intent: provide_preference_language
-#  examples: |
-#    - preferisco un operatore che parli [rumeno](language)
-#    - voglio un operatore che parli [inglese](language)
-#    - preferisco un operatore che parli [spagnolo](language)
-
-- intent: provide_preference_time
-  examples: |
-    - preferisco alle [15:00](time)
-    - mi va bene la [mattina](time)
-    - vorrei l'intervento tra le [14:00 e le 16:00](time)
-    - preferisco la [sera](time)
-    - vorrei il [pomeriggio](time)
-    - dalle [10:00 alle 12:00](time)
-    - preferisco la [mattina](time)
-    - la [sera](time) usciamo
-
-- intent: confirm_operator
-  examples: |
-    - confermo l'operatore scelto [Mario Rossi](operator)
-    - si va bene l'operatore [Luca Bianchi](operator)
-    - va bene, confermo l'operatore [Giovanni Verdi](operator)
-    - d'accordo per l'operatore [Paolo Neri](operator)
-
-- intent: confirm_booking
-  examples: |
-    - confermo la prenotazione
-    - sì, confermo
-    - va bene, confermo
-    - confermo la prenotazione del servizio
-    - perfetto così
 
 - intent: app_detail
   examples: |
@@ -231,3 +246,18 @@ nlu:
     - ho paura a lasciare mia madre con uno sconosciuto
     - ma se mi rubasse qualcosa mentre non ci sono?
     - ma se colpisce l'anziano?
+
+- intent: inform
+  examples: |
+    - vorrei prenotare il servizio [cucinare](service)
+    - il servizio [fare la spesa](service)
+    - [conad adriatico](location)
+    - [10:00-12:00](time)
+    - [cucinare](service)
+    - vorrei prenotare il servizio [passeggiata](service)
+    - il servizio [fare la spesa](service)
+    - [parco del cardeto](location)
+    - [ospedale regionale di torrette](location)
+    - [14:00-16:00](time)
+    - [09:00-11:00](time)
+    - [visita medica](service)

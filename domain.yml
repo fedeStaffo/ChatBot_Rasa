@@ -3,11 +3,15 @@ version: "3.1"
 intents:
   - greet
   - goodbye
+  - affirm
   - deny
+  - inform
+  - mood_great
+  - mood_unhappy
   - stop
   - next_action
   - bot_challenge
-  # Service info handling
+  # App info handling
   - app_detail
   - history_app_detail
   - operator_app_detail
@@ -16,50 +20,32 @@ intents:
   - service_list_info
   - service_detail
   # Booking handling
-  - new_booking
-  - service_choice
-  - provide_location
-  - provide_preference_car
-  - provide_preference_medical_skills
-  #- provide_preference_language
-  - provide_preference_time
-  - confirm_operator
-  - confirm_booking
+  - request_booking_form
 
 entities:
   - service
   - location
-  - car
-  - med
-  #- language
   - time
-  - operator
 
 responses:
   utter_greet:
   - text: "Ciao! Sono ElderCare, il chatbot di assistenza per anziani. Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi, su come effettuare una nuova prenotazione o consultare lo storico dei servizi richiesti. Come posso aiutarti oggi?"
   utter_goodbye:
-  - text: "Arrivederci"
+  - text: "Grazie per aver usufruito dei servizi di ElderCare. A presto!"
   utter_deny:
   - text: "Va bene, se hai bisogno di aiuto, sono qui."
+  utter_happy:
+  - text: "Sono felice di aver reso la tua giornata migliore!"
+  utter_cheer_up:
+  - text: "Sono qui per aiutarti. Cosa posso fare per rendere la tua giornata migliore?"
   utter_iamabot:
   - text: "Sono un bot, creato con Rasa."
   utter_next_action:
   - text: "Cosa vuoi fare ora? Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi, su come effettuare una nuova prenotazione o consultare lo storico dei servizi richiesti."
-  utter_new_booking: 
-  - text: "Quale servizio vuoi prenotare?"
-  utter_ask_car_preference:
-  - text: "Preferisci un operatore automunito? (si/no)"
-  utter_ask_medical_skills_preference:
-  - text: "Hai bisogno di un operatore con competenze mediche? (si/no)"
-  #utter_ask_language_preference:
-  #- text: "Quale lingua preferisci che parli l'operatore?"
-  utter_ask_time_preference:
-  - text: "In quale fascia oraria ti sarebbe comodo l'intervento? (es. 14:00-16:30)"
-  utter_confirm_booking:
-  - text: "Confermi la prenotazione del servizio {service} presso {location} con le preferenze espresse per la fascia oraria {time}?"
-  utter_booking_confirmed:
-  - text: "Prenotazione confermata! Grazie per aver scelto ElderCare."
+  utter_submit:
+  - text: "Prenotazione effettuata con successo!"
+  utter_booking_result:
+  - text: "Ecco i dettagli della tua prenotazione: Servizio: {service}, Luogo: {location}, Data e ora: {time}, Necessità di trasporto: {car}, Necessità di assistenza medica: {med}, Operatore assegnato: {operator}."
   utter_app_detail:
   - text: "ElderCare è un'app nata per assistere gli anziani che rimangono da soli. Per evitare ciò è possibile effettuare una prenotazione di vari servizi di assistenza che verrà poi accettata da un nostro volontario. Questi ragazzi svolgono tale compito senza alcuna remunerazione economica mettendo il benessere comune al primo posto."
   utter_history_app_detail:
@@ -72,29 +58,36 @@ responses:
 slots:
   service:
     type: text
+    influence_conversation: true
     mappings:
       - type: from_entity
         entity: service
   location:
+    influence_conversation: true
     type: text
     mappings:
       - type: from_entity
         entity: location
   car:
-    type: text
+    type: bool
+    influence_conversation: true
     mappings:
-      - type: from_entity
-        entity: car
+    - type: from_intent
+      value: true
+      intent: affirm
+    - type: from_intent
+      value: false
+      intent: deny
   med:  
-    type: text
+    type: bool
+    influence_conversation: true
     mappings:
-      - type: from_entity
-        entity: med
-  #language:
-  #  type: text
-  #  mappings:
-  #    - type: from_entity
-  #     entity: language
+    - type: from_intent
+      value: true
+      intent: affirm
+    - type: from_intent
+      value: false
+      intent: deny
   time:
     type: text
     mappings:
@@ -102,15 +95,28 @@ slots:
         entity: time
   operator:
     type: text
+    influence_conversation: true
     mappings:
-      - type: from_entity
-        entity: operator
+      - type: from_text
+
+forms:
+  booking_form:
+    required_slots:
+    - service
+    - location
+    - time
+    - car
+    - med
 
 actions:
   - action_service_list_info
   - action_service_detail
-  - action_set_service_location
-  - action_find_available_operator
+  - action_ask_service
+  - action_ask_location
+  - action_ask_time
+  - action_ask_car
+  - action_ask_med
+  - validate_booking_form
 
 session_config:
   session_expiration_time: 60

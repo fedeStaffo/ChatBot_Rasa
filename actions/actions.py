@@ -7,11 +7,12 @@
 import csv
 from typing import Any, List, Dict, Text
 from rasa_sdk import Action
-from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.interfaces import Tracker
 import random
-from datetime import datetime, timedelta
+from rasa_sdk.forms import FormValidationAction
+from rasa_sdk.types import DomainDict
+from rasa_sdk.events import EventType
 
 # This is a simple example for a custom action which utters "Hello World!"
 class ActionHelloWorld(Action):
@@ -103,6 +104,7 @@ class ActionServiceDetail(Action):
         service_name = service_name.lower().strip()
 
         service_detail = None
+        possible_locations = []
         # Opens the CSV file containing service data
         with open('data/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
@@ -115,170 +117,238 @@ class ActionServiceDetail(Action):
                     service_detail = row['descrizione']
                     break
 
-        # Sends the service details to the user if found
+        # Opens the CSV file containing location data
+        with open('data/csv/luoghiAncona.csv', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            # Iterates over each row in the CSV file
+            for row in reader:
+                if row['tipo'].lower() == service_name:
+                    possible_locations.append(f"{row['nome']} - {row['indirizzo']} - {row['orario']}")
+
+        # Sends the service details and possible locations to the user if found
         if service_detail:
-            dispatcher.utter_message(text=f"Ecco i dettagli del servizio '{service_name}': {service_detail}")
+            locations_text = "\n".join(possible_locations)
+            dispatcher.utter_message(text=f"Ecco i dettagli del servizio '{service_name}': {service_detail}.\n\nPossibili luoghi:\n{locations_text}")
         else:
             # Informs the user if the service was not found
             dispatcher.utter_message(text=f"Mi dispiace, non ho trovato dettagli per il servizio '{service_name}'.")
         return []
 
-class ActionSetServiceLocation(Action):
-    """
-    Action to determine the location type ('home' or 'outside') for a specified service.
-    
-    This action checks the service name provided by the user and retrieves the associated 
-    location information ('home' or specific location) from a CSV file. If the service is 
-    found, the slot 'location' is updated with the location type. If the service is outside, 
-    it asks the user to choose a specific location from a list.
-    
-    After the location is provided, the action confirms the booking if the location is 'home'.
-    If the location is outside, the user is asked to select a specific location.
-    
-    @param dispatcher: CollectingDispatcher - Sends messages back to the user.
-    @param tracker: Tracker - Tracks the conversation state and slots.
-    @param domain: Dict[Text, Any] - Contains the domain configuration.
-    
-    @return: List[Dict[Text, Any]] - A list of events to update the conversation state.
-    """
+class AskForServiceAction(Action):
     def name(self) -> Text:
-        """
-        Returns the name of the action.
+        return "action_ask_service"
 
-        @return: The name of the action as a string.
-        """
-        return "action_set_service_location"
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
+        dispatcher.utter_message(text="Quale servizio vuoi prenotare?")
+        return []
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        # Retrieves the service name from the slot
-        service_name = tracker.get_slot('service')
-        
-        # If the service is not provided, ask the user to specify it
-        if not service_name:
-            dispatcher.utter_message(text="Non ho capito quale servizio desideri. Puoi ripetere?")
-            return []
+class AskForLocationAction(Action):
+    def name(self) -> Text:
+        return "action_ask_location"
 
-        # Normalize the service name from the slot
-        service_name = service_name.lower().strip()
-        location = None
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
+        dispatcher.utter_message(text="Per favore, specifica una località.")
+        return []
 
-        # Open the CSV file and search for the matching service
+class AskForTimeAction(Action):
+    def name(self) -> Text:
+        return "action_ask_time"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
+        dispatcher.utter_message(text="Per favore, specifica un orario nel formato HH:MM-HH:MM.")
+        return []
+
+class AskForCarAction(Action):
+    def name(self) -> Text:
+        return "action_ask_car"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
+        dispatcher.utter_message(
+            text="Hai bisogno di trasporto?",
+            buttons=[
+                {"title": "sì", "payload": "/affirm"},
+                {"title": "no", "payload": "/deny"},
+            ],
+        )
+        return []
+
+class AskForMedAction(Action):
+    def name(self) -> Text:
+        return "action_ask_med"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
+        dispatcher.utter_message(
+            text="Hai bisogno di assistenza medica?",
+            buttons=[
+                {"title": "sì", "payload": "/affirm"},
+                {"title": "no", "payload": "/deny"},
+            ],
+        )
+        return []
+
+class ValidateBookingForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_booking_form"
+
+    def validate_service(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `service` value."""
+        allowed_services = []
         with open('data/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                # Normalize the service name from the CSV
-                csv_service_name = row['nome'].lower().strip()
-                if csv_service_name == service_name:
-                    location = row['luogo']
-                    break
+                allowed_services.append(row['nome'].lower())
+        
+        if slot_value.lower() not in allowed_services:
+            dispatcher.utter_message(text=f"Il servizio '{slot_value}' non è disponibile. I servizi disponibili sono: {', '.join(allowed_services)}.")
+            return {"service": None}
+        dispatcher.utter_message(text=f"OK! Hai scelto il servizio {slot_value}.")
+        return {"service": slot_value}
 
-        # If the service is at home, confirm the booking
-        if location == "casa":
-            dispatcher.utter_message(text=f"Hai selezionato il servizio '{service_name}' a casa. Hai preferenze sul sesso dell'operatore? (m/f)")
-            return [SlotSet("location", location)]
-
-        # If the service is outside, ask for the specific location
-        elif location:
-            locations = []
-            with open('data/csv/luoghiAncona.csv', newline='', encoding='utf-8') as csvfile:
+    def validate_location(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `location` value."""
+        service = tracker.get_slot('service')
+        if service:
+            with open('data/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    if row['tipo'].lower().strip() == service_name:
-                        # Append the available locations for the service
-                        locations.append(f"{row['nome'].lower()} - {row['indirizzo']} ({row['orario']})")
+                    if row['nome'].lower() == service.lower() and row['luogo'].lower() == 'casa':
+                        dispatcher.utter_message(text="Il servizio scelto è a casa, quindi la località sarà impostata su 'casa'.")
+                        return {"location": "casa"}
+        
+        possible_locations = []
+        with open('data/csv/luoghiAncona.csv', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if row['tipo'].lower() == service.lower():
+                    possible_locations.append(row['nome'].lower())
 
-            # Prepare the list of locations and ask the user to choose one
-            location_list = "\n".join(locations)
-            dispatcher.utter_message(text=f"Per il servizio '{service_name}', ecco i luoghi disponibili:\n{location_list}\nDove vuoi andare?")
-            return []  # Do not set the slot yet, waiting for user input
+        if slot_value.lower() not in possible_locations:
+            dispatcher.utter_message(text=f"Il luogo '{slot_value}' non è valido per il servizio '{service}'. I luoghi disponibili sono: {', '.join(possible_locations)}.")
+            return {"location": None}
+        
+        dispatcher.utter_message(text=f"OK! La località scelta è {slot_value}.")
+        return {"location": slot_value}
 
-        else:
-            # If no location is found for the service, inform the user
-            dispatcher.utter_message(text=f"Mi dispiace, non ho trovato dettagli per il servizio '{service_name}'. Riprova.")
-            return []
+    def validate_time(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `time` value."""
+        import re
+        time_pattern = re.compile(r'^\d{2}:\d{2}-\d{2}:\d{2}$')
+        if not time_pattern.match(slot_value):
+            dispatcher.utter_message(text="Per favore, specifica un orario nel formato HH:MM-HH:MM.")
+            return {"time": None}
+        dispatcher.utter_message(text=f"OK! L'orario scelto è {slot_value}.")
+        return {"time": slot_value}
 
-def is_time_overlap(user_time: str, operator_time: str) -> bool:
-    """
-    Check if the user's time overlaps with the operator's time.
-    @param user_time: Time range chosen by the user (e.g., '14:00-16:30', 'mattina', or 'alle 15')
-    @param operator_time: Time range available for the operator (e.g., '14:00-16:30')
-    @return: True if the times overlap, False otherwise
-    """
-    # Define time ranges for generic times
-    generic_times = {
-        'mattina': ('08:00', '12:00'),
-        'pomeriggio': ('12:00', '18:00'),
-        'sera': ('18:00', '22:00')
-    }
+    def validate_car(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `car` value."""
+        if tracker.get_intent_of_latest_message() == "affirm":
+            dispatcher.utter_message(text="Hai bisogno di trasporto.")
+            return {"car": True}
+        if tracker.get_intent_of_latest_message() == "deny":
+            dispatcher.utter_message(text="Non hai bisogno di trasporto.")
+            return {"car": False}
+        dispatcher.utter_message(text="Non ho capito. Hai bisogno di trasporto?")
+        return {"car": None}
 
-    def time_to_tuple(time_str: str):
-        if '-' in time_str:  # Specific time range
-            start, end = time_str.split('-')
-        elif time_str in generic_times:  # Generic time range (e.g., "mattina")
-            start, end = generic_times[time_str]
-        else:  # Specific time point (e.g., "alle 15")
-            start = time_str
-            end = (datetime.strptime(time_str, '%H:%M') + timedelta(hours=1)).strftime('%H:%M')
-        return start, end
+    def validate_med(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `med` value."""
+        if tracker.get_intent_of_latest_message() == "affirm":
+            dispatcher.utter_message(text="Hai bisogno di assistenza medica.")
+            return {"med": True}
+        if tracker.get_intent_of_latest_message() == "deny":
+            dispatcher.utter_message(text="Non hai bisogno di assistenza medica.")
+            return {"med": False}
+        dispatcher.utter_message(text="Non ho capito. Hai bisogno di assistenza medica?")
+        return {"med": None}
 
-    user_start, user_end = time_to_tuple(user_time)
-    operator_start, operator_end = time_to_tuple(operator_time)
-
-    # Check if the user time range overlaps with the operator's time range
-    return not (user_end <= operator_start or user_start >= operator_end)
-
-class ActionFindAvailableOperator(Action):
-    def name(self) -> Text:
-        return "action_find_available_operator"
-
-    def run(self, dispatcher, tracker, domain) -> List[Dict[Text, Any]]:
-        """
-        Finds an available operator based on user preferences and time slot.
-        """
-        # Retrieve user preferences from slots
-        car = tracker.get_slot("car")  # e.g., 'si' or 'no'
-        med = tracker.get_slot("med")  # e.g., 'si' or 'no'
-        #language = tracker.get_slot("language")  # e.g., 'inglese'
-        language = None
-        time = tracker.get_slot("time")  # e.g., '14:00-16:30' or 'mattina'
+    def assign_operator(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Assign a random available operator based on the selected time, car, and med slots."""
+        time_slot = tracker.get_slot('time')
+        car_needed = tracker.get_slot('car')
+        med_needed = tracker.get_slot('med')
 
         available_operators = []
+        with open('data/csv/operatori.csv', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if car_needed and row['automunito'].lower() != 'si':
+                    continue
+                if med_needed and row['competenze_mediche'].lower() != 'si':
+                    continue
+                operator_time = row['fascia_oraria']
+                if self.is_time_overlap(time_slot, operator_time):
+                    available_operators.append(f"{row['nome']} {row['cognome']}")
 
-        try:
-            # Open and read the CSV file containing operator data
-            with open('data/csv/operatori.csv', mode='r', encoding='utf-8') as file:
-                reader = csv.DictReader(file)
-                for row in reader:
-                    # Check if operator meets all preferences
-                    if (row['automunito'] == car or car is None) and \
-                            (row['linguaggi'] == language or language is None) and \
-                            (row['competenze_mediche'] == med or med is None):
+        if not available_operators:
+            dispatcher.utter_message(text="Mi dispiace, non ci sono operatori disponibili per l'orario e i requisiti selezionati.")
+            return {"operator": None}
 
-                        # Check if the user's time overlaps with the operator's available time
-                        if is_time_overlap(time, row['fascia_oraria']):
-                            available_operators.append(row)
+        selected_operator = random.choice(available_operators)
+        dispatcher.utter_message(text=f"L'operatore assegnato è {selected_operator}.")
+        return {"operator": selected_operator}
 
-            if available_operators:
-                # Choose a random operator from the available ones
-                chosen_operator = random.choice(available_operators)
-                name = chosen_operator['nome']
-                surname = chosen_operator['cognome']
+    def is_time_overlap(self, time1: str, time2: str) -> bool:
+        """Check if two time ranges overlap."""
+        start1, end1 = time1.split('-')
+        start2, end2 = time2.split('-')
+        return max(start1, start2) < min(end1, end2)
 
-                # Save the operator in the slot and notify the user
-                dispatcher.utter_message(f"Ho trovato un operatore disponibile: {name} {surname}. Conferma se per te va bene.")
-                return [SlotSet("operator", f"{name} {surname}")]
-            else:
-                # If no operator is available, inform the user
-                dispatcher.utter_message("Mi dispiace, non sono riuscito a trovare un operatore disponibile che corrisponda alle tue preferenze e all'orario richiesto.")
-                return [SlotSet("operator", None)]
+    def validate(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> List[Dict]:
+        """Validate all slots and assign an operator."""
+        slots = super().validate(dispatcher, tracker, domain)
+        operator_slot = self.assign_operator(dispatcher, tracker, domain)
+        slots.append(operator_slot)
+        return slots
 
-        except FileNotFoundError:
-            dispatcher.utter_message("Errore: il file degli operatori non è stato trovato.")
-            return [SlotSet("operator", None)]
+    def extract_requested_slot(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Extract the requested slot and handle the stop intent."""
+        if tracker.latest_message['intent'].get('name') == 'stop':
+            dispatcher.utter_message(text="Hai interrotto la prenotazione.")
+            return {"requested_slot": None}
+        return super().extract_requested_slot(dispatcher, tracker, domain)
 
-        except Exception as e:
-            dispatcher.utter_message(f"Si è verificato un errore: {str(e)}")
-            return [SlotSet("operator", None)]

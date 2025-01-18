@@ -35,15 +35,64 @@ stories:
     intent: next_action
   - action: utter_next_action
 
-- story: service booking
+- story: test service booking
   steps:
   - user: |
-      voglio prenotare un servizio
-    intent: new_booking
-  - action: utter_new_booking
+      ciao
+    intent: greet
+  - action: utter_greet
   - user: |
-      voglio prenotare il servizio spesa
-    intent: service_choice
+      voglio prenotare un servizio
+    intent: request_booking_form
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+      - requested_slot: service
+  - user: |
+      cucinare
+    intent: inform
     entities:
-      - service: spesa
-  - action: utter_print_service
+      - service: cucinare
+  - slot_was_set:
+      - service: cucinare
+  - slot_was_set:
+      - requested_slot: location
+  - user: |
+      casa
+    intent: inform
+    entities:
+      - location: casa
+  - slot_was_set:
+      - location: casa
+  - slot_was_set:
+      - requested_slot: car
+  - user: |
+      sì
+    intent: affirm
+  - slot_was_set:
+      - car: true
+  - slot_was_set:
+      - requested_slot: med
+  - user: |
+      sì
+    intent: affirm
+  - slot_was_set:
+      - med: true
+  - slot_was_set:
+      - requested_slot: time
+  - user: |
+      10:00-12:00
+    intent: inform
+    entities:
+      - time: 10:00-12:00
+  - slot_was_set:
+      - time: 10:00-12:00
+  - slot_was_set:
+      - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: utter_booking_result
+  - user: |
+      arrivederci
+    intent: goodbye
+  - action: utter_goodbye
