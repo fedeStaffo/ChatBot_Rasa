@@ -16,16 +16,6 @@ rules:
       - intent: greet
       - action: utter_greet
 
-  - rule: Rispondi quando l'utente nega
-    steps:
-      - intent: deny
-      - action: utter_deny
-
-  - rule: Interrompi quello che stavi facendo se l'utente dice stop
-    steps:
-      - intent: stop
-      - action: utter_next_action
-
   - rule: Se l'utente chiede cosa fare, fornisci suggerimenti
     steps:
       - intent: next_action

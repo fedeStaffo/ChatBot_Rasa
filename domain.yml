@@ -32,14 +32,14 @@ responses:
   - text: "Ciao! Sono ElderCare, il chatbot di assistenza per anziani. Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi, su come effettuare una nuova prenotazione o consultare lo storico dei servizi richiesti. Come posso aiutarti oggi?"
   utter_goodbye:
   - text: "Grazie per aver usufruito dei servizi di ElderCare. A presto!"
-  utter_deny:
-  - text: "Va bene, se hai bisogno di aiuto, sono qui."
   utter_happy:
   - text: "Sono felice di aver reso la tua giornata migliore!"
   utter_cheer_up:
   - text: "Sono qui per aiutarti. Cosa posso fare per rendere la tua giornata migliore?"
   utter_iamabot:
   - text: "Sono un bot, creato con Rasa."
+  utter_ask_continue_booking:
+  - text: "Vuoi davvero interrompere la prenotazione?"
   utter_next_action:
   - text: "Cosa vuoi fare ora? Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi, su come effettuare una nuova prenotazione o consultare lo storico dei servizi richiesti."
   utter_submit:
@@ -62,12 +62,20 @@ slots:
     mappings:
       - type: from_entity
         entity: service
+      - type: from_entity
+        entity: service
+        conditions:
+          - active_loop: booking_form
+            requested_slot: service
   location:
     influence_conversation: true
     type: text
     mappings:
       - type: from_entity
         entity: location
+        conditions:
+          - active_loop: booking_form
+            requested_slot: location
   car:
     type: bool
     influence_conversation: true
@@ -75,29 +83,48 @@ slots:
     - type: from_intent
       value: true
       intent: affirm
+      conditions:
+          - active_loop: booking_form
+            requested_slot: car
     - type: from_intent
       value: false
       intent: deny
-  med:  
+      conditions:
+          - active_loop: booking_form
+            requested_slot: car
+  med:
     type: bool
     influence_conversation: true
     mappings:
-    - type: from_intent
-      value: true
-      intent: affirm
-    - type: from_intent
-      value: false
-      intent: deny
+      - type: from_intent
+        value: true
+        intent: affirm
+        conditions:
+          - active_loop: booking_form
+            requested_slot: med
+      - type: from_intent
+        value: false
+        intent: deny
+        conditions:
+          - active_loop: booking_form
+            requested_slot: med
   time:
     type: text
+    influence_conversation: true
     mappings:
       - type: from_entity
         entity: time
+        conditions:
+          - active_loop: booking_form
+            requested_slot: time
   operator:
     type: text
     influence_conversation: true
     mappings:
       - type: from_text
+        conditions:
+          - active_loop: booking_form
+            requested_slot: operator
 
 forms:
   booking_form:
@@ -107,6 +134,7 @@ forms:
     - time
     - car
     - med
+    - operator
 
 actions:
   - action_service_list_info
@@ -116,6 +144,7 @@ actions:
   - action_ask_time
   - action_ask_car
   - action_ask_med
+  - action_ask_operator
   - validate_booking_form
 
 session_config:

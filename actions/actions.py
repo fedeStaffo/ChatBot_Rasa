@@ -66,7 +66,6 @@ class ActionServiceListInfo(Action):
         dispatcher.utter_message(text=f"Ecco i servizi disponibili: {service_list}. Vuoi maggiori dettagli su uno di questi servizi?")
         return []
 
-
 class ActionServiceDetail(Action):
     """
     Action to provide detailed information about a specific service selected by the user.
@@ -166,7 +165,7 @@ class AskForCarAction(Action):
         dispatcher.utter_message(
             text="Hai bisogno di trasporto?",
             buttons=[
-                {"title": "sì", "payload": "/affirm"},
+                {"title": "si", "payload": "/affirm"},
                 {"title": "no", "payload": "/deny"},
             ],
         )
@@ -180,11 +179,65 @@ class AskForMedAction(Action):
         dispatcher.utter_message(
             text="Hai bisogno di assistenza medica?",
             buttons=[
+                {"title": "si", "payload": "/affirm"},
+                {"title": "no", "payload": "/deny"},
+            ],
+        )
+        return []
+
+class AskForOperatorAction(Action):
+    def name(self) -> Text:
+        return "action_ask_operator"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
+        operator = tracker.get_slot('operator')
+        if operator is None:
+            operator = self.assign_operator(dispatcher, tracker, domain)
+        dispatcher.utter_message(
+            text=f"L'operatore assegnato è {operator}. Confermi?",
+            buttons=[
                 {"title": "sì", "payload": "/affirm"},
                 {"title": "no", "payload": "/deny"},
             ],
         )
         return []
+
+    def assign_operator(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> str:
+        """Assign a random available operator based on the selected time, car, and med slots."""
+        time_slot = tracker.get_slot('time')
+        car_needed = tracker.get_slot('car')
+        med_needed = tracker.get_slot('med')
+
+        available_operators = []
+        with open('data/csv/operatori.csv', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if car_needed and row['automunito'].lower() != 'si':
+                    continue
+                if med_needed and row['competenze_mediche'].lower() != 'si':
+                    continue
+                operator_time = row['fascia_oraria']
+                if self.is_time_overlap(time_slot, operator_time):
+                    available_operators.append(f"{row['nome']} {row['cognome']}")
+
+        if not available_operators:
+            dispatcher.utter_message(text="Mi dispiace, non ci sono operatori disponibili per l'orario e i requisiti selezionati.")
+            return None
+
+        selected_operator = random.choice(available_operators)
+        dispatcher.utter_message(text=f"L'operatore assegnato è {selected_operator}.")
+        return selected_operator
+
+    def is_time_overlap(self, time1: str, time2: str) -> bool:
+        """Check if two time ranges overlap."""
+        start1, end1 = time1.split('-')
+        start2, end2 = time2.split('-')
+        return max(start1, start2) < min(end1, end2)
 
 class ValidateBookingForm(FormValidationAction):
     def name(self) -> Text:
@@ -265,14 +318,16 @@ class ValidateBookingForm(FormValidationAction):
         domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate `car` value."""
-        if tracker.get_intent_of_latest_message() == "affirm":
+        intent = tracker.latest_message['intent'].get('name')
+        if intent == "affirm":
             dispatcher.utter_message(text="Hai bisogno di trasporto.")
             return {"car": True}
-        if tracker.get_intent_of_latest_message() == "deny":
+        elif intent == "deny":
             dispatcher.utter_message(text="Non hai bisogno di trasporto.")
             return {"car": False}
-        dispatcher.utter_message(text="Non ho capito. Hai bisogno di trasporto?")
-        return {"car": None}
+        else:
+            dispatcher.utter_message(text="Non ho capito. Hai bisogno di trasporto?")
+            return {"car": None}
 
     def validate_med(
         self,
@@ -282,51 +337,37 @@ class ValidateBookingForm(FormValidationAction):
         domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate `med` value."""
-        if tracker.get_intent_of_latest_message() == "affirm":
+        intent = tracker.latest_message['intent'].get('name')
+        if intent == "affirm":
             dispatcher.utter_message(text="Hai bisogno di assistenza medica.")
             return {"med": True}
-        if tracker.get_intent_of_latest_message() == "deny":
+        elif intent == "deny":
             dispatcher.utter_message(text="Non hai bisogno di assistenza medica.")
             return {"med": False}
-        dispatcher.utter_message(text="Non ho capito. Hai bisogno di assistenza medica?")
-        return {"med": None}
+        else:
+            dispatcher.utter_message(text="Non ho capito. Hai bisogno di assistenza medica?")
+            return {"med": None}
 
-    def assign_operator(
+    def validate_operator(
         self,
+        slot_value: Any,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        """Assign a random available operator based on the selected time, car, and med slots."""
-        time_slot = tracker.get_slot('time')
-        car_needed = tracker.get_slot('car')
-        med_needed = tracker.get_slot('med')
-
-        available_operators = []
-        with open('data/csv/operatori.csv', newline='', encoding='utf-8') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                if car_needed and row['automunito'].lower() != 'si':
-                    continue
-                if med_needed and row['competenze_mediche'].lower() != 'si':
-                    continue
-                operator_time = row['fascia_oraria']
-                if self.is_time_overlap(time_slot, operator_time):
-                    available_operators.append(f"{row['nome']} {row['cognome']}")
-
-        if not available_operators:
-            dispatcher.utter_message(text="Mi dispiace, non ci sono operatori disponibili per l'orario e i requisiti selezionati.")
+        """Validate `operator` value."""
+        intent = tracker.latest_message['intent'].get('name')
+        operator = tracker.get_slot('operator')
+        if intent == "affirm":
+            dispatcher.utter_message(text=f"Operatore {operator} confermato.")
+            return {"operator": operator}
+        elif intent == "deny":
+            dispatcher.utter_message(text="Operatore non confermato. Riassegno un nuovo operatore.")
+            operator = AskForOperatorAction().assign_operator(dispatcher, tracker, domain)
+            return {"operator": operator}
+        else:
+            dispatcher.utter_message(text="Non ho capito. Confermi l'operatore assegnato?")
             return {"operator": None}
-
-        selected_operator = random.choice(available_operators)
-        dispatcher.utter_message(text=f"L'operatore assegnato è {selected_operator}.")
-        return {"operator": selected_operator}
-
-    def is_time_overlap(self, time1: str, time2: str) -> bool:
-        """Check if two time ranges overlap."""
-        start1, end1 = time1.split('-')
-        start2, end2 = time2.split('-')
-        return max(start1, start2) < min(end1, end2)
 
     def validate(
         self,
@@ -334,21 +375,6 @@ class ValidateBookingForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> List[Dict]:
-        """Validate all slots and assign an operator."""
+        """Validate all slots."""
         slots = super().validate(dispatcher, tracker, domain)
-        operator_slot = self.assign_operator(dispatcher, tracker, domain)
-        slots.append(operator_slot)
         return slots
-
-    def extract_requested_slot(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> Dict[Text, Any]:
-        """Extract the requested slot and handle the stop intent."""
-        if tracker.latest_message['intent'].get('name') == 'stop':
-            dispatcher.utter_message(text="Hai interrotto la prenotazione.")
-            return {"requested_slot": None}
-        return super().extract_requested_slot(dispatcher, tracker, domain)
-
