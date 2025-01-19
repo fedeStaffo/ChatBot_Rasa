@@ -13,6 +13,7 @@ import random
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.types import DomainDict
 from rasa_sdk.events import EventType
+from rasa_sdk.events import SlotSet
 
 # This is a simple example for a custom action which utters "Hello World!"
 class ActionHelloWorld(Action):
@@ -185,60 +186,6 @@ class AskForMedAction(Action):
         )
         return []
 
-class AskForOperatorAction(Action):
-    def name(self) -> Text:
-        return "action_ask_operator"
-
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
-        operator = tracker.get_slot('operator')
-        if operator is None:
-            operator = self.assign_operator(dispatcher, tracker, domain)
-        dispatcher.utter_message(
-            text=f"L'operatore assegnato è {operator}. Confermi?",
-            buttons=[
-                {"title": "sì", "payload": "/affirm"},
-                {"title": "no", "payload": "/deny"},
-            ],
-        )
-        return []
-
-    def assign_operator(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> str:
-        """Assign a random available operator based on the selected time, car, and med slots."""
-        time_slot = tracker.get_slot('time')
-        car_needed = tracker.get_slot('car')
-        med_needed = tracker.get_slot('med')
-
-        available_operators = []
-        with open('data/csv/operatori.csv', newline='', encoding='utf-8') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                if car_needed and row['automunito'].lower() != 'si':
-                    continue
-                if med_needed and row['competenze_mediche'].lower() != 'si':
-                    continue
-                operator_time = row['fascia_oraria']
-                if self.is_time_overlap(time_slot, operator_time):
-                    available_operators.append(f"{row['nome']} {row['cognome']}")
-
-        if not available_operators:
-            dispatcher.utter_message(text="Mi dispiace, non ci sono operatori disponibili per l'orario e i requisiti selezionati.")
-            return None
-
-        selected_operator = random.choice(available_operators)
-        dispatcher.utter_message(text=f"L'operatore assegnato è {selected_operator}.")
-        return selected_operator
-
-    def is_time_overlap(self, time1: str, time2: str) -> bool:
-        """Check if two time ranges overlap."""
-        start1, end1 = time1.split('-')
-        start2, end2 = time2.split('-')
-        return max(start1, start2) < min(end1, end2)
-
 class ValidateBookingForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_booking_form"
@@ -348,27 +295,6 @@ class ValidateBookingForm(FormValidationAction):
             dispatcher.utter_message(text="Non ho capito. Hai bisogno di assistenza medica?")
             return {"med": None}
 
-    def validate_operator(
-        self,
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> Dict[Text, Any]:
-        """Validate `operator` value."""
-        intent = tracker.latest_message['intent'].get('name')
-        operator = tracker.get_slot('operator')
-        if intent == "affirm":
-            dispatcher.utter_message(text=f"Operatore {operator} confermato.")
-            return {"operator": operator}
-        elif intent == "deny":
-            dispatcher.utter_message(text="Operatore non confermato. Riassegno un nuovo operatore.")
-            operator = AskForOperatorAction().assign_operator(dispatcher, tracker, domain)
-            return {"operator": operator}
-        else:
-            dispatcher.utter_message(text="Non ho capito. Confermi l'operatore assegnato?")
-            return {"operator": None}
-
     def validate(
         self,
         dispatcher: CollectingDispatcher,
@@ -377,4 +303,51 @@ class ValidateBookingForm(FormValidationAction):
     ) -> List[Dict]:
         """Validate all slots."""
         slots = super().validate(dispatcher, tracker, domain)
+        
+        # Call ActionAssignOperator to assign an operator
+        action_assign_operator = ActionAssignOperator()
+        events = action_assign_operator.run(dispatcher, tracker, domain)
+        for event in events:
+            if isinstance(event, SlotSet) and event.key == "operator":
+                slots.append({"operator": event.value})
+                break
+        
         return slots
+
+class ActionAssignOperator(Action):
+    def name(self) -> Text:
+        return "action_assign_operator"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
+        time_slot = tracker.get_slot('time')
+        car_needed = tracker.get_slot('car')
+        med_needed = tracker.get_slot('med')
+
+        if not time_slot:
+            return []
+
+        available_operators = []
+        with open('data/csv/operatori.csv', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if car_needed and row['automunito'].lower() != 'si':
+                    continue
+                if med_needed and row['competenze_mediche'].lower() != 'si':
+                    continue
+                operator_time = row['fascia_oraria']
+                if self.is_time_overlap(time_slot, operator_time):
+                    available_operators.append(f"{row['nome']} {row['cognome']}")
+
+        if not available_operators:
+            dispatcher.utter_message(text="Mi dispiace, non ci sono operatori disponibili per l'orario e i requisiti selezionati. Puoi provare a cambiare i requisiti.")
+            return [SlotSet("operator", "nessuno")]
+
+        selected_operator = random.choice(available_operators)
+        dispatcher.utter_message(text=f"Operatore assegnato: {selected_operator}.")
+        return [SlotSet("operator", selected_operator)]
+
+    def is_time_overlap(self, time1: str, time2: str) -> bool:
+        """Check if two time ranges overlap."""
+        start1, end1 = time1.split('-')
+        start2, end2 = time2.split('-')
+        return max(start1, start2) < min(end1, end2)

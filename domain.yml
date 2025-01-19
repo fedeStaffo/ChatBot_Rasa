@@ -119,12 +119,9 @@ slots:
             requested_slot: time
   operator:
     type: text
-    influence_conversation: true
     mappings:
-      - type: from_text
-        conditions:
-          - active_loop: booking_form
-            requested_slot: operator
+    - type: custom
+      action: action_assign_operator
 
 forms:
   booking_form:
@@ -134,7 +131,6 @@ forms:
     - time
     - car
     - med
-    - operator
 
 actions:
   - action_service_list_info
@@ -144,8 +140,8 @@ actions:
   - action_ask_time
   - action_ask_car
   - action_ask_med
-  - action_ask_operator
   - validate_booking_form
+  - action_assign_operator
 
 session_config:
   session_expiration_time: 60
