@@ -1,263 +1,275 @@
 version: "3.1"
 
 nlu:
-- intent: greet
-  examples: |
-    - ciao
-    - salve
-    - buongiorno
-    - buonasera
-    - ehi
-    - ciao a tutti
-    - buona giornata
-    - buon pomeriggio
+  - intent: greet
+    examples: |
+      - /start
+      - ciao
+      - salve
+      - buongiorno
+      - buonasera
+      - ehi
+      - ciao a tutti
+      - buona giornata
+      - buon pomeriggio
 
-- intent: goodbye
-  examples: |
-    - arrivederci
-    - a presto
-    - ci vediamo
-    - addio
-    - ci sentiamo
-    - buona serata
-    - buonanotte
-    - alla prossima
+  - intent: goodbye
+    examples: |
+      - arrivederci
+      - a presto
+      - ci vediamo
+      - addio
+      - ci sentiamo
+      - buona serata
+      - buonanotte
+      - alla prossima
 
-- intent: affirm
-  examples: |
-    - sì
-    - s
-    - proprio così
-    - naturalmente
-    - suona bene
-    - corretto
-    - /affermare
+  - intent: affirm
+    examples: |
+      - sì
+      - s
+      - proprio così
+      - naturalmente
+      - suona bene
+      - corretto
+      - /affermare
 
-- intent: deny
-  examples: |
-    - no
-    - n
-    - mai
-    - non credo
-    - non mi piace
-    - assolutamente no
-    - non proprio
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - mai
+      - non credo
+      - non mi piace
+      - assolutamente no
+      - non proprio
 
-- intent: mood_great
-  examples: |
-    - perfetto
-    - fantastico
-    - incredibile
-    - mi sento come un re
-    - meraviglioso
-    - mi sento molto bene
-    - sto benissimo
-    - sono fantastico
-    - sto per salvare il mondo
-    - super entusiasta
-    - estremamente bene
-    - così perfetto
-    - così buono
-    - così perfetto
+  - intent: mood_great
+    examples: |
+      - perfetto
+      - fantastico
+      - incredibile
+      - mi sento come un re
+      - meraviglioso
+      - mi sento molto bene
+      - sto benissimo
+      - sono fantastico
+      - sto per salvare il mondo
+      - super entusiasta
+      - estremamente bene
+      - così perfetto
+      - così buono
+      - così perfetto
 
-- intent: mood_unhappy
-  examples: |
-    - la mia giornata è stata orribile
-    - sono triste
-    - non mi sento molto bene
-    - sono deluso
-    - super triste
-    - sono così triste
-    - triste
-    - molto triste
-    - infelice
-    - non bene
-    - non molto bene
-    - estremamente triste
-    - sono tanto triste
-    - sono così triste
+  - intent: mood_unhappy
+    examples: |
+      - la mia giornata è stata orribile
+      - sono triste
+      - non mi sento molto bene
+      - sono deluso
+      - super triste
+      - sono così triste
+      - triste
+      - molto triste
+      - infelice
+      - non bene
+      - non molto bene
+      - estremamente triste
+      - sono tanto triste
+      - sono così triste
 
-- intent: bot_challenge
-  examples: |
-    - sei un bot?
-    - sei un umano?
-    - sto parlando con un bot?
-    - sto parlando con un umano?
-    - sei un robot?
-    - sei una persona?
+  - intent: bot_challenge
+    examples: |
+      - sei un bot?
+      - sei un umano?
+      - sto parlando con un bot?
+      - sto parlando con un umano?
+      - sei un robot?
+      - sei una persona?
 
-- intent: stop
-  examples: |
-    - stop
-    - basta
-    - non voglio continuare
-    - non voglio continuare a parlare
-    - non voglio continuare la conversazione
-    - non voglio continuare a parlare con te
-    - non voglio parlare con te
-    - grazie, ma ho finito adesso
+  - intent: stop
+    examples: |
+      - stop
+      - basta
+      - non voglio continuare
+      - non voglio continuare a parlare
+      - non voglio continuare la conversazione
+      - non voglio continuare a parlare con te
+      - non voglio parlare con te
+      - grazie, ma ho finito adesso
 
-- intent: service_list_info
-  examples: |
-    - vorrei informazioni sui servizi
-    - parlami dei servizi
-    - quali servizi offrite?
-    - quali sono i servizi disponibili?
-    - puoi dirmi quali servizi offrite?
-    - quali sono i servizi disponibili?
-    - mi puoi dare informazioni sui servizi?
+  - intent: service_list_info
+    examples: |
+      - vorrei informazioni sui servizi
+      - parlami dei servizi
+      - quali servizi offrite?
+      - quali sono i servizi disponibili?
+      - puoi dirmi quali servizi offrite?
+      - quali sono i servizi disponibili?
+      - mi puoi dare informazioni sui servizi?
 
-- intent: service_detail
-  examples: |
-    - voglio sapere di più sul servizio [fare la spesa](service)
-    - mi interessa il servizio [fare la spesa](service)
-    - vorrei dettagli su [cucinare](service)
-    - puoi dirmi di più su [assistenza medica](service)
-    - hai informazioni su [passeggiate](service)
-    - cosa mi puoi dire riguardo il fare la [fare la spesa](service)
+  - intent: service_detail
+    examples: |
+      - voglio sapere di più sul servizio [fare la spesa](service)
+      - mi interessa il servizio [fare la spesa](service)
+      - vorrei dettagli su [cucinare](service)
+      - puoi dirmi di più su [assistenza medica](service)
+      - hai informazioni su [passeggiate](service)
+      - cosa mi puoi dire riguardo il fare la [fare la spesa](service)
 
-- synonym: fare la spesa
-  examples: |
-    - acquistare del cibo
-    - acquisti
-    - shopping alimentare
-    - andare a comprare i viveri
-    - andare a prendere del cibo
+  - synonym: fare la spesa
+    examples: |
+      - acquistare del cibo
+      - acquisti
+      - shopping alimentare
+      - andare a comprare i viveri
+      - andare a prendere del cibo
 
-- synonym: cucinare
-  examples: |
-    - preparare da mangiare
-    - fare da mangiare
-    - impastare
-    - aiuto in cucina
-    - preparare i pasti
+  - synonym: cucinare
+    examples: |
+      - preparare da mangiare
+      - fare da mangiare
+      - impastare
+      - aiuto in cucina
+      - preparare i pasti
 
-- synonym: passeggiata
-  examples: |
-    - camminare
-    - camminata
-    - corsetta
-    - andare a fare 4 passi
-    - giretto in giro
-    - sgambettare
+  - synonym: passeggiata
+    examples: |
+      - camminare
+      - camminata
+      - corsetta
+      - andare a fare 4 passi
+      - giretto in giro
+      - sgambettare
 
-- synonym: parlare
-  examples: |
-    - chiacchierare
-    - conversare
-    - fare due chiacchiere
+  - synonym: parlare
+    examples: |
+      - chiacchierare
+      - conversare
+      - fare due chiacchiere
 
-- synonym: giocare
-  examples: |
-    - giocare a carte
-    - fare un gioco
-    - giocare a scacchi
+  - synonym: giocare
+    examples: |
+      - giocare a carte
+      - fare un gioco
+      - giocare a scacchi
 
-- synonym: leggere
-  examples: |
-    - leggere un libro
-    - leggere un giornale
-    - leggere una lettera
+  - synonym: leggere
+    examples: |
+      - leggere un libro
+      - leggere un giornale
+      - leggere una lettera
 
-- synonym: assistenza medica
-  examples: |
-    - aiuto medico
-    - assistenza sanitaria
-    - cura medica
+  - synonym: assistenza medica
+    examples: |
+      - aiuto medico
+      - assistenza sanitaria
+      - cura medica
 
-- synonym: sicurezza
-  examples: |
-    - protezione
-    - sicurezza in casa
-    - aiuto per la sicurezza
+  - synonym: sicurezza
+    examples: |
+      - protezione
+      - sicurezza in casa
+      - aiuto per la sicurezza
 
-- synonym: visita medica
-  examples: |
-    - appuntamento medico
-    - visita dal dottore
-    - controllo medico
+  - synonym: visita medica
+    examples: |
+      - appuntamento medico
+      - visita dal dottore
+      - controllo medico
 
-- synonym: visita parenti
-  examples: |
-    - visita ai parenti
-    - andare dai parenti
-    - visita ai familiari
+  - synonym: visita parenti
+    examples: |
+      - visita ai parenti
+      - andare dai parenti
+      - visita ai familiari
 
-- synonym: fare shopping
-  examples: |
-    - fare acquisti
-    - andare a fare shopping
-    - comprare
+  - synonym: fare shopping
+    examples: |
+      - fare acquisti
+      - andare a fare shopping
+      - comprare
 
-- synonym: servizi pubblici
-  examples: |
-    - uffici pubblici
-    - andare agli uffici
-    - servizi amministrativi
+  - synonym: servizi pubblici
+    examples: |
+      - uffici pubblici
+      - andare agli uffici
+      - servizi amministrativi
 
-- intent: next_action
-  examples: |
-    - cosa posso fare ora?
-    - quali sono le opzioni disponibili?
-    - cosa posso fare adesso?
-    - quali sono le altre opzioni?
-    - cosa posso fare dopo?
-    - adesso cosa posso fare?
-    - quindi, cosa posso fare?
+  - intent: next_action
+    examples: |
+      - cosa posso fare ora?
+      - quali sono le opzioni disponibili?
+      - cosa posso fare adesso?
+      - quali sono le altre opzioni?
+      - cosa posso fare dopo?
+      - adesso cosa posso fare?
+      - quindi, cosa posso fare?
 
-- intent: request_booking_form
-  examples: |
-    - voglio prenotare un servizio
-    - voglio effettuare una nuova prenotazione
-    - posso prenotare un servizio?
-    - ho bisogno di fare una prenotazione
-    - nuova prenotazione
-    - mi serve aiuto con i miei genitori
-    - per fare una prenotazione, cosa devo fare? 
+  - intent: request_booking_form
+    examples: |
+      - voglio prenotare un servizio
+      - voglio effettuare una nuova prenotazione
+      - posso prenotare un servizio?
+      - ho bisogno di fare una prenotazione
+      - nuova prenotazione
+      - mi serve aiuto con i miei genitori
+      - per fare una prenotazione, cosa devo fare?
 
-- intent: app_detail
-  examples: |
-    - voglio sapere di più sul ElderCare
-    - cosa è ElderCare?
-    - non ho mai sentito parlare di ElderCare
-    - parlami dell'applicazione
-    - Elder cosa?
+  - intent: app_detail
+    examples: |
+      - voglio sapere di più sul ElderCare
+      - cosa è ElderCare?
+      - non ho mai sentito parlare di ElderCare
+      - parlami dell'applicazione
+      - Elder cosa?
 
-- intent: history_app_detail
-  examples: |
-    - da chi sei stato creato?
-    - chi sono i tuoi inventori?
-    - quando sei nato?
-    - chi è tuo padre?
-    - chi ha creato ElderCare?
+  - intent: history_app_detail
+    examples: |
+      - da chi sei stato creato?
+      - chi sono i tuoi inventori?
+      - quando sei nato?
+      - chi è tuo padre?
+      - chi ha creato ElderCare?
 
-- intent: operator_app_detail
-  examples: |
-    - davvero non si paga?
-    - gli operatori sono dei volontari?
-    - chi sono gli operatori?
-    - perché gli operatori lo fanno?
-    - gli operatori lavora gratis davvero?
+  - intent: operator_app_detail
+    examples: |
+      - davvero non si paga?
+      - gli operatori sono dei volontari?
+      - chi sono gli operatori?
+      - perché gli operatori lo fanno?
+      - gli operatori lavora gratis davvero?
 
-- intent: security_app_detail
-  examples: |
-    - come posso essere sicuro che il operatore non sia un truffatore?
-    - come posso fidarmi di un operatore?
-    - ho paura a lasciare mia madre con uno sconosciuto
-    - ma se mi rubasse qualcosa mentre non ci sono?
-    - ma se colpisce l'anziano?
+  - intent: security_app_detail
+    examples: |
+      - come posso essere sicuro che il operatore non sia un truffatore?
+      - come posso fidarmi di un operatore?
+      - ho paura a lasciare mia madre con uno sconosciuto
+      - ma se mi rubasse qualcosa mentre non ci sono?
+      - ma se colpisce l'anziano?
 
-- intent: inform
-  examples: |
-    - vorrei prenotare il servizio [cucinare](service)
-    - il servizio [fare la spesa](service)
-    - [conad adriatico](location)
-    - [10:00-12:00](time)
-    - [cucinare](service)
-    - vorrei prenotare il servizio [passeggiata](service)
-    - il servizio [fare la spesa](service)
-    - [parco del cardeto](location)
-    - [ospedale regionale di torrette](location)
-    - [14:00-16:00](time)
-    - [09:00-11:00](time)
-    - [visita medica](service)
+  - intent: out_of_scope
+    examples: |
+      - Voglio ordinare da mangiare
+      - Quanto fa 2+2?
+      - Chi è il presidente degli stati uniti?
+      - Voglio andare su Marte
+      - Voglio comprare un bitcoin
+      - Spedisci un pacco
+
+  - intent: inform
+    examples: |
+      - vorrei prenotare il servizio [cucinare](service)
+      - il servizio [fare la spesa](service)
+      - [conad adriatico](location)
+      - [10:00-12:00](time)
+      - [cucinare](service)
+      - vorrei prenotare il servizio [passeggiata](service)
+      - il servizio [fare la spesa](service)
+      - [parco del cardeto](location)
+      - [ospedale regionale di torrette](location)
+      - [14:00-16:00](time)
+      - [09:00-11:00](time)
+      - [visita medica](service)
+
+  - intent: nlu_fallback
