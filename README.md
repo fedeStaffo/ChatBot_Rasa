@@ -2,6 +2,29 @@
 
 ElderCare is a chatbot designed to assist elderly users or their caregivers by providing information about various services, making bookings, and consulting the history of requested services. The primary goal of ElderCare is to offer a user-friendly interface that helps elderly individuals access essential services and information with ease.
 
+## How to run the chatbot
+
+1. *Start the Action Server*: in one terminal run
+```bash
+rasa run actions
+```
+2. *Start the Rasa Server*: in another terminal run
+```bash
+rasa run
+```
+3. *Start the duckling server*: in another terminal run
+```bash
+docker run -p 8000:8000 rasa/duckling
+```
+4. *Start the ngrok gateway [Optional]*: in another terminal run
+```bash
+ngrok http 5005 
+```
+
+Once the chatbot is ready, you can use it accessing the [@ElderCare_bot](https://web.telegram.org/k/#@ElderCare_bot) bot. And yes, we were polite enough to leave the token in plain sight in the code (Please don't sue us GitGuardian!). 
+
+
+
 ## Functionalities
 
 - **Greet Users**: The chatbot can greet users and provide a friendly introduction.
@@ -100,27 +123,6 @@ To train the Rasa model, run the following command:
 ```bash
 rasa train
 ```
-
-## How to run the chatbot
-
-1. *Start the Action Server*: in one terminal run
-```bash
-rasa run actions
-```
-2. *Start the Rasa Server*: in another terminal run
-```bash
-rasa run
-```
-3. *Start the duckling server*: in another terminal run
-```bash
-docker run -p 8000:8000 rasa/duckling
-```
-4. *Start the ngrok gateway [Optional]*: in another terminal run
-```bash
-ngrok http 5005 
-```
-
-Once the chatbot is ready, you can use it accessing the [@ElderCare_bot](https://web.telegram.org/k/#@ElderCare_bot) bot. And yes, we were polite enough to leave the token in plain sight in the code (Please don't sue us GitGuardian!). 
 
 ## Custom Actions
 
