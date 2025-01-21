@@ -101,30 +101,26 @@ To train the Rasa model, run the following command:
 rasa train
 ```
 
-## Running the Chatbot
+## How to run the chatbot
 
-### Start the Action Server
-
-First, start the action server in one terminal:
+1. *Start the Action Server*: in one terminal run
 ```bash
 rasa run actions
 ```
-
-### Start the Rasa Server
-
-In another terminal, start the Rasa server:
+2. *Start the Rasa Server*: in another terminal run
 ```bash
-rasa run --endpoints endpoints.yml
+rasa run
+```
+3. *Start the duckling server*: in another terminal run
+```bash
+docker run -p 8000:8000 rasa/duckling
+```
+4. *Start the ngrok gateway [Optional]*: in another terminal run
+```bash
+ngrok http 5005 
 ```
 
-### Using the Rasa Shell
-
-To interact with the chatbot using the Rasa shell, run:
-```bash
-rasa shell
-```
-
-This will allow you to test the chatbot and see how it responds to various inputs.
+Once the chatbot is ready, you can use it accessing the [@ElderCare_bot](https://web.telegram.org/k/#@ElderCare_bot) bot. And yes, we were polite enough to leave the token in plain sight in the code (Please don't sue us GitGuardian!). 
 
 ## Custom Actions
 
