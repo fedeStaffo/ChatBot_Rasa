@@ -133,8 +133,11 @@ class ActionServiceDetail(Action):
 
         # Sends the service details and possible locations to the user if found
         if service_detail:
-            locations_text = "\n".join(possible_locations)
-            dispatcher.utter_message(text=f"Ecco i dettagli del servizio '{service_name}': {                                     service_detail}.\n\nPossibili luoghi:\n{locations_text}")
+            if possible_locations:  # Check if there are any possible locations
+                locations_text = "\n".join(possible_locations)
+                dispatcher.utter_message(text=f"Ecco i dettagli del servizio '{service_name}': {service_detail}.\n\nPossibili luoghi:\n{locations_text}")
+            else:  # If there are no possible locations
+                dispatcher.utter_message(text=f"Ecco i dettagli del servizio '{service_name}': {service_detail}.")   
         else:
             # Informs the user if the service was not found
             dispatcher.utter_message(
