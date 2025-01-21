@@ -29,32 +29,57 @@ entities:
 
 responses:
   utter_greet:
-  - text: "Ciao! Sono ElderCare, il chatbot di assistenza per anziani. Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi, su come effettuare una nuova prenotazione o consultare lo storico dei servizi richiesti. Come posso aiutarti oggi?"
+  - text: "Ciao! Sono ElderCare, il chatbot di assistenza per anziani. Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi e su come effettuare una nuova prenotazione. Come posso aiutarti oggi?"
+  - text: "Ciao! Sono ElderCare, il tuo assistente virtuale dedicato all’assistenza per anziani. Posso offrirti informazioni sulla piattaforma, sui servizi disponibili o aiutarti a prenotare un servizio. Dimmi, come posso esserti utile oggi?"
+  - text: "Benvenuto! Sono ElderCare, il chatbot pensato per supportarti nell’assistenza agli anziani. Posso aiutarti a conoscere i servizi disponibili o a effettuare una prenotazione. In cosa posso esserti d’aiuto?" 
   utter_goodbye:
   - text: "Grazie per aver usufruito dei servizi di ElderCare. A presto!"
+  - text: "Ti ringraziamo per aver scelto ElderCare. Torna presto!"
+  - text: "Grazie per aver utilizzato i servizi di ElderCare. Alla prossima!"
   utter_happy:
   - text: "Sono felice di aver reso la tua giornata migliore!"
+  - text: "Mi fa piacere sapere di aver contribuito a migliorare la tua giornata!"
+  - text: "È una gioia sapere di averti aiutato a rendere la tua giornata più luminosa!"
   utter_cheer_up:
   - text: "Sono qui per aiutarti. Cosa posso fare per rendere la tua giornata migliore?"
+  - text: "Sono qui per supportarti! Dimmi, come posso rendere la tua giornata più semplice?"
+  - text: "Il mio obiettivo è aiutarti. Come posso contribuire a migliorare la tua giornata?"
   utter_iamabot:
   - text: "Sono un bot, creato con Rasa."
+  - text: "Sono un assistente virtuale, sviluppato con Rasa."
+  - text: "Sono un chatbot creato utilizzando la piattaforma Rasa."
   utter_ask_continue_booking:
   - text: "Vuoi davvero interrompere la prenotazione?"
+  - text: "Sei sicuro di voler annullare la prenotazione?"
+  - text: "Confermi di voler interrompere il processo di prenotazione?"
   utter_next_action:
-  - text: "Cosa vuoi fare ora? Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi, su come effettuare una nuova prenotazione o consultare lo storico dei servizi richiesti."
+  - text: "Cosa vuoi fare ora? Posso aiutarti fornendo informazioni generali sulla piattaforma, sui tipi di servizi o su come effettuare una nuova prenotazione."
+  - text: "Che cosa desideri fare adesso? Posso offrirti informazioni sulla piattaforma, sui servizi disponibili o guidarti nella prenotazione di un nuovo servizio."
+  - text: "Come posso esserti utile ora? Posso darti dettagli sulla piattaforma, sui servizi offerti o aiutarti a effettuare una nuova prenotazione."
   utter_submit:
   - text: "Prenotazione effettuata con successo!"
+  - text: "La tua prenotazione è stata completata con successo!"
+  - text: "Prenotazione avvenuta con successo! Grazie per aver scelto i nostri servizi."
   utter_booking_result:
   - text: "Ecco i dettagli della tua prenotazione: Servizio: {service}, Luogo: {location}, Data e ora: {time}, Necessità di trasporto: {car}, Necessità di assistenza medica: {med}, Operatore assegnato: {operator}."
+  - text: "Questi sono i dettagli della tua prenotazione: Servizio: {service}, Luogo: {location}, Data e ora: {time}, Trasporto richiesto: {car}, Assistenza medica richiesta: {med}, Operatore assegnato: {operator}."
+  - text: "I dettagli della tua prenotazione sono i seguenti: Servizio: {service}, Luogo: {location}, Data e ora: {time}, Trasporto necessario: {car}, Assistenza medica necessaria: {med}, Operatore designato: {operator}."
   utter_app_detail:
   - text: "ElderCare è un'app nata per assistere gli anziani che rimangono da soli. Per evitare ciò è possibile effettuare una prenotazione di vari servizi di assistenza che verrà poi accettata da un nostro volontario. Questi ragazzi svolgono tale compito senza alcuna remunerazione economica mettendo il benessere comune al primo posto."
+  - text: "ElderCare è un'app pensata per supportare gli anziani che trascorrono del tempo da soli. Per evitare questa situazione, puoi prenotare diversi servizi di assistenza che saranno poi confermati da uno dei nostri volontari. Questi giovani offrono il loro aiuto senza ricevere compenso, mettendo il benessere degli altri al centro del loro impegno."
+  - text: "ElderCare è una piattaforma ideata per fornire supporto agli anziani che restano soli. Per garantire loro assistenza, è possibile prenotare una serie di servizi che verranno accettati da un nostro volontario. I volontari operano senza alcun pagamento, dedicandosi al benessere della comunità."
   utter_history_app_detail:
   - text: "Sono stata sviluppata da un team di studenti del corso di Ingegneria informatica dell'università politecnica delle Marche. Il progetto è stato realizzato nell'ambito del corcorso HACK-AI-TON 2024."
+  - text: "Sono stata creata da un gruppo di studenti del corso di Ingegneria Informatica presso l'Università Politecnica delle Marche. Questo progetto è stato sviluppato nell'ambito del concorso HACK-AI-TON 2024."
+  - text: "Il mio sviluppo è stato realizzato da un team di studenti dell'Università Politecnica delle Marche, all'interno del corso di Ingegneria Informatica. Il progetto è stato parte del concorso HACK-AI-TON 2024."
   utter_operator_app_detail:
   - text: "Gli operatori sono volontari che si offrono di assistere gli anziani che rimangono da soli, quindi non sono previsti costi per chi richiede il servizio. Questi ragazzi svolgono tale compito senza alcuna remunerazione economica. Tuttavia al raggiungimento di un determinato numero di ore, ricevono buoni pasto e sconti presso vari negozi"
+  - text: "Gli operatori sono volontari che si offrono di aiutare gli anziani che rimangono soli, pertanto il servizio è completamente gratuito per chi lo richiede. Questi giovani svolgono il loro ruolo senza ricevere compensi, ma al raggiungimento di un certo numero di ore, ricevono buoni pasto e sconti presso diverse attività commerciali."
+  - text: "Gli operatori sono volontari che assistono gli anziani soli, quindi il servizio non comporta alcun costo per gli utenti. I volontari non vengono remunerati, ma una volta accumulate determinate ore, ricevono vantaggi come buoni pasto e sconti in vari negozi."
   utter_security_app_detail:
   - text: "Per garantire la sicurezza degli anziani, gli operatori vengono sottoposti a controlli preventivi ed è necessario fornire tutti i documenti necessari. Inoltre, è possibile visualizzare le recensioni degli operatori e lasciare la propria valutazione dopo l'intervento. Qualora sorgessero dei problemi non esitate a contattarci, siamo sempre a disposizione per risolvere qualsiasi problema."
-
+  - text: "Per garantire la sicurezza degli anziani, gli operatori sono sottoposti a controlli preliminari e devono fornire tutta la documentazione richiesta. Inoltre, è possibile consultare le recensioni degli operatori e lasciare il proprio feedback al termine del servizio. In caso di problemi, non esitare a contattarci: siamo sempre pronti ad aiutarti."
+  - text: "Per tutelare la sicurezza degli anziani, gli operatori vengono sottoposti a verifiche preventive e devono presentare tutti i documenti richiesti. Puoi anche leggere le recensioni degli operatori e condividere la tua esperienza dopo ogni intervento. Se dovessi riscontrare difficoltà, siamo a tua disposizione per qualsiasi necessità."
 slots:
   service:
     type: text
