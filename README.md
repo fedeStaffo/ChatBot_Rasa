@@ -4,22 +4,36 @@ ElderCare is a chatbot designed to assist elderly users or their caregivers by p
 
 ## How to run the chatbot
 
-1. *Start the Action Server*: in one terminal run
-```bash
-rasa run actions
-```
-2. *Start the Rasa Server*: in another terminal run
-```bash
-rasa run
-```
-3. *Start the duckling server*: in another terminal run
-```bash
-docker run -p 8000:8000 rasa/duckling
-```
-4. *Start the ngrok gateway [Optional]*: in another terminal run
-```bash
-ngrok http 5005 
-```
+
+1. Train a Rasa model containing the Rasa NLU and Rasa Core models by running:
+    ```bash
+    rasa train
+    ```
+    The model will be stored in the `/models` directory as a zipped file.
+
+1. Run an instance of [duckling](https://rasa.com/docs/rasa/nlu/components/#ducklingentityextractor)
+   on port 8000 by either running the docker command
+    ```bash
+    docker run -p 8000:8000 rasa/duckling
+    ```
+   or [installing duckling](https://github.com/facebook/duckling#requirements) directly on your machine and starting the server.
+
+1. Test the assistant by running:
+    ```bash
+    rasa run actions&
+    rasa run -m models --endpoints endpoints.yml
+    ```
+    This will load the assistant in your command line for you to chat.
+
+1. *Start the ngrok gateway [Optional]*: in another terminal run
+    ```bash
+    ngrok http 5005 
+    ```
+    This will assign you a public ngrok https URL. Put it inside [`credentials.yml`](credentials.yml) in the `webhook_url` field. Then update the Telegram's bot webhook URL running in your terminal
+    ```bash
+    curl -X POST "https://api.telegram.org/bot<TOKEN>/setWebhook" -d "<YOUR_NGROK_URL>"
+    ```
+    The `TOKEN` can be read in the `access_token` field in the [`credentials.yml`](credentials.yml) file.
 
 Once the chatbot is ready, you can use it accessing the [@ElderCare_bot](https://web.telegram.org/k/#@ElderCare_bot) bot. And yes, we were polite enough to leave the token in plain sight in the code (Please don't sue us GitGuardian!). 
 
