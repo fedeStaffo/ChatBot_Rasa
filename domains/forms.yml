@@ -1,0 +1,11 @@
+version: "3.1"
+
+forms:
+  booking_form:
+    required_slots:
+      - service
+      - location
+      - time
+      - car
+      - med
+

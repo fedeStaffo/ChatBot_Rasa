@@ -1,0 +1,82 @@
+version: "3.1"
+
+nlu:
+  - synonym: fare la spesa
+    examples: |
+      - acquistare del cibo
+      - acquisti
+      - shopping alimentare
+      - andare a comprare i viveri
+      - andare a prendere del cibo
+
+  - synonym: cucinare
+    examples: |
+      - preparare da mangiare
+      - fare da mangiare
+      - impastare
+      - aiuto in cucina
+      - preparare i pasti
+
+  - synonym: passeggiata
+    examples: |
+      - camminare
+      - camminata
+      - corsetta
+      - andare a fare 4 passi
+      - giretto in giro
+      - sgambettare
+
+  - synonym: parlare
+    examples: |
+      - chiacchierare
+      - conversare
+      - parlare con qualcuno
+      - fare due chiacchiere
+
+  - synonym: giocare
+    examples: |
+      - giocare a carte
+      - fare un gioco
+      - giocare a scacchi
+
+  - synonym: leggere
+    examples: |
+      - leggere un libro
+      - leggere un giornale
+      - leggere una lettera
+
+  - synonym: assistenza medica
+    examples: |
+      - aiuto medico
+      - assistenza sanitaria
+      - cura medica
+
+  - synonym: sicurezza
+    examples: |
+      - protezione
+      - sicurezza in casa
+      - aiuto per la sicurezza
+
+  - synonym: visita medica
+    examples: |
+      - appuntamento medico
+      - visita dal dottore
+      - controllo medico
+
+  - synonym: visita parenti
+    examples: |
+      - visita ai parenti
+      - andare dai parenti
+      - visita ai familiari
+
+  - synonym: fare shopping
+    examples: |
+      - fare acquisti
+      - andare a fare shopping
+      - comprare
+
+  - synonym: servizi pubblici
+    examples: |
+      - uffici pubblici
+      - andare agli uffici
+      - servizi amministrativi

@@ -1,0 +1,12 @@
+version: "3.1"
+
+rules:
+  - rule: Saluta quando l'utente dice arrivederci
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: Saluta l'utente quando dice ciao
+    steps:
+      - intent: greet
+      - action: utter_greet

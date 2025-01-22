@@ -1,0 +1,25 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - /start
+      - ciao
+      - salve
+      - buongiorno
+      - buonasera
+      - ehi
+      - ciao a tutti
+      - buona giornata
+      - buon pomeriggio
+
+  - intent: goodbye
+    examples: |
+      - arrivederci
+      - a presto
+      - ci vediamo
+      - addio
+      - ci sentiamo
+      - buona serata
+      - buonanotte
+      - alla prossima

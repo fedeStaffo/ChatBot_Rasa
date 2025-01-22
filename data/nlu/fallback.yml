@@ -1,0 +1,13 @@
+version: "3.1"
+
+nlu:
+  - intent: out_of_scope
+    examples: |
+      - Voglio ordinare da mangiare
+      - Quanto fa 2+2?
+      - Chi è il presidente degli stati uniti?
+      - Voglio andare su Marte
+      - Voglio comprare un bitcoin
+      - Spedisci un pacco
+
+  - intent: nlu_fallback

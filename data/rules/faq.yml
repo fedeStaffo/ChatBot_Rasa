@@ -1,0 +1,33 @@
+version: "3.1"
+
+rules:
+
+  - rule: Dì 'Sono un bot' quando l'utente chiede
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
+
+  - rule: Se l'utente chiede cosa fare, fornisci suggerimenti
+    steps:
+      - intent: next_action
+      - action: utter_next_action
+
+  - rule: Fornisci informazioni sulla applicazione quando l'utente lo chiede
+    steps:
+      - intent: app_detail
+      - action: utter_app_detail
+
+  - rule: Fornisci informazioni sulla storia dell'applicazione quando l'utente lo chiede
+    steps:
+      - intent: history_app_detail
+      - action: utter_history_app_detail
+
+  - rule: Fornisci informazioni sugli operatori dell'applicazione quando l'utente lo chiede
+    steps:
+      - intent: operator_app_detail
+      - action: utter_operator_app_detail
+
+  - rule: Fornisci rassicurazioni sugli operatori quando l'utente lo chiede
+    steps:
+      - intent: security_app_detail
+      - action: utter_security_app_detail

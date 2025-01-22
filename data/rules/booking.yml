@@ -1,0 +1,12 @@
+version: "3.1"
+
+rules:
+  - rule: Fornisci informazioni sulla lista dei servizi quando l'utente lo chiede
+    steps:
+      - intent: service_list_info
+      - action: action_service_list_info
+
+  - rule: Fornisci dettagli sul servizio quando l'utente lo chiede
+    steps:
+      - intent: service_detail
+      - action: action_service_detail

@@ -1,0 +1,71 @@
+version: "3.1"
+
+
+slots:
+  service:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: service
+      - type: from_entity
+        entity: service
+        conditions:
+          - active_loop: booking_form
+            requested_slot: service
+  location:
+    influence_conversation: true
+    type: text
+    mappings:
+      - type: from_entity
+        entity: location
+        conditions:
+          - active_loop: booking_form
+            requested_slot: location
+  car:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: from_intent
+        value: true
+        intent: affirm
+        conditions:
+          - active_loop: booking_form
+            requested_slot: car
+      - type: from_intent
+        value: false
+        intent: deny
+        conditions:
+          - active_loop: booking_form
+            requested_slot: car
+  med:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: from_intent
+        value: true
+        intent: affirm
+        conditions:
+          - active_loop: booking_form
+            requested_slot: med
+      - type: from_intent
+        value: false
+        intent: deny
+        conditions:
+          - active_loop: booking_form
+            requested_slot: med
+  time:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: time
+        conditions:
+          - active_loop: booking_form
+            requested_slot: time
+  operator:
+    type: text
+    mappings:
+      - type: custom
+        action: action_assign_operator
+

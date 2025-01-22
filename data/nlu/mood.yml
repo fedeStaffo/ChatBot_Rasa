@@ -1,0 +1,38 @@
+version: "3.1"
+
+nlu:  
+  - intent: mood_great
+    use_entities: []
+    examples: |
+      - perfetto
+      - fantastico
+      - incredibile
+      - mi sento come un re
+      - meraviglioso
+      - mi sento molto bene
+      - sto benissimo
+      - sono fantastico
+      - sto per salvare il mondo
+      - super entusiasta
+      - estremamente bene
+      - così perfetto
+      - così buono
+      - così perfetto
+
+  - intent: mood_unhappy
+    use_entities: []
+    examples: |
+      - la mia giornata è stata orribile
+      - sono triste
+      - non mi sento molto bene
+      - sono deluso
+      - super triste
+      - sono così triste
+      - triste
+      - molto triste
+      - infelice
+      - non bene
+      - non molto bene
+      - estremamente triste
+      - sono tanto triste
+      - sono così triste

@@ -1,0 +1,61 @@
+version: "3.1"
+
+nlu:
+  - intent: affirm
+    examples: |
+      - sì
+      - s
+      - proprio così
+      - naturalmente
+      - suona bene
+      - corretto
+      - /affermare
+
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - mai
+      - non credo
+      - non mi piace
+      - assolutamente no
+      - non proprio
+
+  - intent: stop
+    examples: |
+      - stop
+      - basta
+      - non voglio continuare
+      - non voglio continuare a parlare
+      - non voglio continuare la conversazione
+      - non voglio continuare a parlare con te
+      - non voglio parlare con te
+      - grazie, ma ho finito adesso
+
+
+  - intent: next_action
+    examples: |
+      - cosa posso fare ora?
+      - quali sono le opzioni disponibili?
+      - cosa posso fare adesso?
+      - quali sono le altre opzioni?
+      - cosa posso fare dopo?
+      - adesso cosa posso fare?
+      - quindi, cosa posso fare?
+
+  - intent: inform
+    examples: |
+      - vorrei prenotare il servizio [cucinare](service)
+      - il servizio [fare la spesa](service)
+      - vorrei [parlare con qualcuno](service)
+      - [conad adriatico](location)
+      - [10:00-12:00](time)
+      - [cucinare](service)
+      - vorrei prenotare il servizio [passeggiata](service)
+      - il servizio [fare la spesa](service)
+      - [parco del cardeto](location)
+      - [ospedale regionale di torrette](location)
+      - [14:00-16:00](time)
+      - [09:00-11:00](time)
+      - [visita medica](service)
+      - [parlare con qualcuno](service)

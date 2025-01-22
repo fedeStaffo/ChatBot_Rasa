@@ -1,0 +1,14 @@
+version: "3.1"
+
+rules:
+  - story: mood_happy
+    steps:
+      - intent: mood_great
+      - action: utter_happy
+
+  - story: sad_path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up

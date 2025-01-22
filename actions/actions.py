@@ -58,7 +58,7 @@ class ActionServiceListInfo(Action):
         """
         services = []
         # Opens the CSV file containing service data
-        with open('data/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
+        with open('actions/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             # Reads each row and appends the service name to the services list
             for row in reader:
@@ -111,7 +111,7 @@ class ActionServiceDetail(Action):
         service_detail = None
         possible_locations = []
         # Opens the CSV file containing service data
-        with open('data/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
+        with open('actions/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             # Iterates over each row in the CSV file
             for row in reader:
@@ -123,7 +123,7 @@ class ActionServiceDetail(Action):
                     break
 
         # Opens the CSV file containing location data
-        with open('data/csv/luoghiAncona.csv', newline='', encoding='utf-8') as csvfile:
+        with open('actions/csv/luoghiAncona.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             # Iterates over each row in the CSV file
             for row in reader:
@@ -216,7 +216,7 @@ class ValidateBookingForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `service` value."""
         allowed_services = []
-        with open('data/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
+        with open('actions/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 allowed_services.append(row['nome'].lower())
@@ -238,7 +238,7 @@ class ValidateBookingForm(FormValidationAction):
         """Validate `location` value."""
         service = tracker.get_slot('service')
         if service:
-            with open('data/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
+            with open('actions/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     if row['nome'].lower() == service.lower() and row['luogo'].lower() == 'casa':
@@ -247,7 +247,7 @@ class ValidateBookingForm(FormValidationAction):
                         return {"location": "casa"}
 
         possible_locations = []
-        with open('data/csv/luoghiAncona.csv', newline='', encoding='utf-8') as csvfile:
+        with open('actions/csv/luoghiAncona.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if row['tipo'].lower() == service.lower():
@@ -352,7 +352,7 @@ class ActionAssignOperator(Action):
             return []
 
         available_operators = []
-        with open('data/csv/operatori.csv', newline='', encoding='utf-8') as csvfile:
+        with open('actions/csv/operatori.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if car_needed and row['automunito'].lower() != 'si':

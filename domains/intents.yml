@@ -1,0 +1,21 @@
+verson: '3.1'
+intents:
+- affirm
+- deny
+- stop
+- next_action
+- inform
+- request_booking_form
+- service_list_info
+- service_detail
+- out_of_scope
+- nlu_fallback
+- bot_challenge
+- app_detail
+- history_app_detail
+- operator_app_detail
+- security_app_detail
+- greet
+- goodbye
+- mood_great
+- mood_unhappy
