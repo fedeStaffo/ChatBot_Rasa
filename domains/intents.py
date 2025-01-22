@@ -8,7 +8,7 @@ Domain's intents are extracted from NLU's intents.
 
 input_path = 'data/nlu'
 output_file = 'domains/intents.yml'
-intents_yml = {'verson': '3.1', 'intents': []}
+intents_yml = {'version': "3.1", 'intents': []}
 
 globs = glob.glob(os.path.join(input_path, '*.yml'))
 for filename in globs:

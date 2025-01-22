@@ -1,0 +1,15 @@
+version: "3.1"
+
+nlu:
+  - intent: request_booking_form
+    examples: |
+      - voglio prenotare un servizio
+      - voglio effettuare una nuova prenotazione
+      - posso prenotare un servizio?
+      - ho bisogno di fare una prenotazione
+      - nuova prenotazione
+      - mi serve aiuto con i miei genitori
+      - mi serve aiuto
+      - vorrei prenotare il servizio [cucinare](service
+      - mi serve un aiuto per [fare la spesa](service)
+      - vorrei prenotare il servizio [passeggiata](service)

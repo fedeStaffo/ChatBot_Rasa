@@ -20,8 +20,8 @@ ElderCare is a chatbot designed to assist elderly users or their caregivers by p
 
 1. Test the assistant by running:
     ```bash
-    rasa run actions&
-    rasa run -m models --endpoints endpoints.yml
+    rasa run actions
+    python load_env.py && rasa run -m models --endpoints endpoints.yml
     ```
     This will load the assistant in your command line for you to chat.
 
@@ -35,7 +35,7 @@ ElderCare is a chatbot designed to assist elderly users or their caregivers by p
     ```
     The `TOKEN` can be read in the `access_token` field in the [`credentials.yml`](credentials.yml) file.
 
-Once the chatbot is ready, you can use it accessing the [@ElderCare_bot](https://web.telegram.org/k/#@ElderCare_bot) bot. And yes, we were polite enough to leave the token in plain sight in the code (Please don't sue us GitGuardian!). 
+Once the chatbot is ready, you can use it accessing the [@ElderCare_bot](https://web.telegram.org/k/#@ElderCare_bot) bot.
 
 
 

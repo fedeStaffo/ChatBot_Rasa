@@ -2,7 +2,6 @@ version: "3.1"
 
 nlu:  
   - intent: mood_great
-    use_entities: []
     examples: |
       - perfetto
       - fantastico
@@ -20,7 +19,6 @@ nlu:
       - così perfetto
 
   - intent: mood_unhappy
-    use_entities: []
     examples: |
       - la mia giornata è stata orribile
       - sono triste

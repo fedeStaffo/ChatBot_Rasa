@@ -5,6 +5,7 @@ forms:
     required_slots:
       - service
       - location
+      - date
       - time
       - car
       - med

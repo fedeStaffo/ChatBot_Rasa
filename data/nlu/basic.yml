@@ -5,6 +5,7 @@ nlu:
     examples: |
       - sì
       - s
+      - /affirm
       - proprio così
       - naturalmente
       - suona bene
@@ -19,6 +20,7 @@ nlu:
       - non credo
       - non mi piace
       - assolutamente no
+      - /deny
       - non proprio
 
   - intent: stop
@@ -45,17 +47,15 @@ nlu:
 
   - intent: inform
     examples: |
-      - vorrei prenotare il servizio [cucinare](service)
       - il servizio [fare la spesa](service)
       - vorrei [parlare con qualcuno](service)
       - [conad adriatico](location)
-      - [10:00-12:00](time)
       - [cucinare](service)
-      - vorrei prenotare il servizio [passeggiata](service)
       - il servizio [fare la spesa](service)
       - [parco del cardeto](location)
       - [ospedale regionale di torrette](location)
-      - [14:00-16:00](time)
-      - [09:00-11:00](time)
+      - Alle 17 
+      - Il pomeriggio alle 5
+      - La mattina alle 8
       - [visita medica](service)
       - [parlare con qualcuno](service)

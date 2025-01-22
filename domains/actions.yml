@@ -3,10 +3,5 @@ version: "3.1"
 actions:
   - action_service_list_info
   - action_service_detail
-  - action_ask_service
-  - action_ask_location
-  - action_ask_time
-  - action_ask_car
-  - action_ask_med
   - validate_booking_form
   - action_assign_operator

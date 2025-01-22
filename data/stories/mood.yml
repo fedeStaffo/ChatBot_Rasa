@@ -1,6 +1,6 @@
 version: "3.1"
 
-rules:
+stories:
   - story: mood_happy
     steps:
       - intent: mood_great

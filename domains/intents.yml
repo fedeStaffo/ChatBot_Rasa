@@ -1,4 +1,5 @@
-verson: '3.1'
+version: '3.1'
+
 intents:
 - affirm
 - deny
@@ -8,14 +9,20 @@ intents:
 - request_booking_form
 - service_list_info
 - service_detail
-- out_of_scope
-- nlu_fallback
+- out_of_scope:
+      use_entities: []
+- nlu_fallback:
+      use_entities: []
 - bot_challenge
 - app_detail
 - history_app_detail
 - operator_app_detail
 - security_app_detail
-- greet
-- goodbye
-- mood_great
-- mood_unhappy
+- greet:
+      use_entities: []
+- goodbye:
+      use_entities: []
+- mood_great:
+      use_entities: []
+- mood_unhappy:
+      use_entities: []

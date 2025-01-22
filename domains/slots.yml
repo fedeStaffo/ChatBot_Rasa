@@ -4,17 +4,12 @@ version: "3.1"
 slots:
   service:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: service
-      - type: from_entity
-        entity: service
-        conditions:
-          - active_loop: booking_form
-            requested_slot: service
   location:
-    influence_conversation: true
+    influence_conversation: false
     type: text
     mappings:
       - type: from_entity
@@ -24,7 +19,7 @@ slots:
             requested_slot: location
   car:
     type: bool
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from_intent
         value: true
@@ -40,7 +35,7 @@ slots:
             requested_slot: car
   med:
     type: bool
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from_intent
         value: true
@@ -54,9 +49,18 @@ slots:
         conditions:
           - active_loop: booking_form
             requested_slot: med
+  date:
+    type: text
+    influence_conversation: false
+    mappings:  
+      - type: from_entity
+        entity: date
+        conditions:
+          - active_loop: booking_form
+            requested_slot: date
   time:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from_entity
         entity: time

@@ -3,6 +3,7 @@ version: "3.1"
 nlu:
   - intent: bot_challenge
     examples: |
+      - bot_challenge
       - sei un bot?
       - sei un umano?
       - sto parlando con un bot?
@@ -13,6 +14,7 @@ nlu:
 
   - intent: app_detail
     examples: |
+      - info
       - voglio sapere di più sul ElderCare
       - cosa è ElderCare?
       - non ho mai sentito parlare di ElderCare
@@ -38,7 +40,27 @@ nlu:
   - intent: security_app_detail
     examples: |
       - come posso essere sicuro che il operatore non sia un truffatore?
+      - security
       - come posso fidarmi di un operatore?
       - ho paura a lasciare mia madre con uno sconosciuto
       - ma se mi rubasse qualcosa mentre non ci sono?
       - ma se colpisce l'anziano?
+
+  - intent: service_list_info
+    examples: |
+      - vorrei informazioni sui servizi
+      - parlami dei servizi
+      - quali servizi offrite?
+      - quali sono i servizi disponibili?
+      - puoi dirmi quali servizi offrite?
+      - quali sono i servizi disponibili?
+      - mi puoi dare informazioni sui servizi?
+
+  - intent: service_detail
+    examples: |
+      - voglio sapere di più sul servizio [fare la spesa](service)
+      - mi interessa il servizio [fare la spesa](service)
+      - vorrei dettagli su [cucinare](service)
+      - puoi dirmi di più su [assistenza medica](service)
+      - hai informazioni su [passeggiate](service)
+      - cosa mi puoi dire riguardo il fare la [fare la spesa](service)

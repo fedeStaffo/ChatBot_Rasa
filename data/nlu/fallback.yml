@@ -11,3 +11,10 @@ nlu:
       - Spedisci un pacco
 
   - intent: nlu_fallback
+    examples: |
+      - difdfafa
+      - qwerty
+      - sono una persona
+      - sei scemo
+      - non capisci niente
+      - bla bla

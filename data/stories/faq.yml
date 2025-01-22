@@ -20,3 +20,13 @@ stories:
     steps:
       - intent: security_app_detail
       - action: utter_security_app_detail
+
+  - story: provide_service_list_info
+    steps:
+      - intent: service_list_info
+      - action: action_service_list_info
+
+  - story: provide_service_detail
+    steps:
+      - intent: service_detail
+      - action: action_service_detail

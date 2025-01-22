@@ -15,94 +15,49 @@ from rasa_sdk.types import DomainDict
 from rasa_sdk.events import EventType
 from rasa_sdk.events import SlotSet
 
-# This is a simple example for a custom action which utters "Hello World!"
-
-
-class ActionHelloWorld(Action):
-
-    def name(self) -> Text:
-        return "action_hello_world"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        dispatcher.utter_message(text="Hello World!")
-
-        return []
-
+# TODO: revisionare alla luce di date+time come slot
 
 class ActionServiceListInfo(Action):
     """
-    Action to retrieve and list all available services from a CSV file.
-
-    @return: A list containing a SlotSet action for 'service_list'.
+    Retrieve and list all available services from a CSV file.
     """
 
     def name(self) -> str:
-        """
-        Defines the name of the action for reference in the Rasa domain.
-
-        @return: The name of the action as a string.
-        """
         return "action_service_list_info"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
         """
         Reads service names from a CSV file, formats them into a message, and sends it to the user.
         Updates the 'service_list' slot with the list of services.
-
-        @param dispatcher: The dispatcher used to send messages back to the user.
-        @param tracker: The tracker instance containing the conversation state.
-        @param domain: The domain dictionary containing action and intent definitions.
         """
         services = []
-        # Opens the CSV file containing service data
         with open('actions/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
-            # Reads each row and appends the service name to the services list
             for row in reader:
                 services.append(row['nome'])
 
-        # Joins all service names into a single string
         service_list = ", ".join(services)
-        # Sends the list of services to the user
-        dispatcher.utter_message(text=f"Ecco i servizi disponibili: {                                 service_list}. Vuoi maggiori dettagli su uno di questi servizi?")
+        dispatcher.utter_message(
+            text=f"Ecco i servizi disponibili: {service_list}. Vuoi maggiori dettagli su uno di questi servizi?")
         return []
 
 
 class ActionServiceDetail(Action):
     """
     Action to provide detailed information about a specific service selected by the user.
-
-    @return: An empty list if the service is not found or a message is sent to the user.
     """
 
     def name(self) -> str:
-        """
-        Defines the name of the action for reference in the Rasa domain.
-
-        @return: The name of the action as a string.
-        """
         return "action_service_detail"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
         """
         Retrieves the selected service from the slot, searches for its details in a CSV file,
         and sends the details to the user. If the service is not found, informs the user.
-
-        @param dispatcher: The dispatcher used to send messages back to the user.
-        @param tracker: The tracker instance containing the conversation state.
-        @param domain: The domain dictionary containing action and intent definitions.
-
-        @return: An empty list if no service is found or a SlotSet action if details are provided.
         """
-        # Retrieves the service name from the slot
         service_name = tracker.get_slot('service')
         if not service_name:
-            # If no service is specified, asks the user to repeat
-            dispatcher.utter_message(
-                text="Non ho capito quale servizio ti interessa. Puoi ripetere?")
+            dispatcher.utter_message(response='utter_fallback')
             return []
 
         # Normalizes the service name from the slot (lowercase and strip whitespace)
@@ -135,71 +90,15 @@ class ActionServiceDetail(Action):
         if service_detail:
             if possible_locations:  # Check if there are any possible locations
                 locations_text = "\n".join(possible_locations)
-                dispatcher.utter_message(text=f"Ecco i dettagli del servizio '{service_name}': {service_detail}.\n\nPossibili luoghi:\n{locations_text}")
+                dispatcher.utter_message(
+                    text=f"Ecco i dettagli del servizio '{service_name}': {service_detail}.\n\nPossibili luoghi:\n{locations_text}")
             else:  # If there are no possible locations
-                dispatcher.utter_message(text=f"Ecco i dettagli del servizio '{service_name}': {service_detail}.")   
+                dispatcher.utter_message(
+                    text=f"Ecco i dettagli del servizio '{service_name}': {service_detail}.")
         else:
             # Informs the user if the service was not found
             dispatcher.utter_message(
                 text=f"Mi dispiace, non ho trovato dettagli per il servizio '{service_name}'.")
-        return []
-
-
-class AskForServiceAction(Action):
-    def name(self) -> Text:
-        return "action_ask_service"
-
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
-        dispatcher.utter_message(text="Quale servizio vuoi prenotare?")
-        return []
-
-
-class AskForLocationAction(Action):
-    def name(self) -> Text:
-        return "action_ask_location"
-
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
-        dispatcher.utter_message(text="Per favore, specifica una località.")
-        return []
-
-
-class AskForTimeAction(Action):
-    def name(self) -> Text:
-        return "action_ask_time"
-
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
-        dispatcher.utter_message(
-            text="Per favore, specifica un orario nel formato HH:MM-HH:MM.")
-        return []
-
-
-class AskForCarAction(Action):
-    def name(self) -> Text:
-        return "action_ask_car"
-
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
-        dispatcher.utter_message(
-            text="Hai bisogno di trasporto?",
-            buttons=[
-                {"title": "si", "payload": "/affirm"},
-                {"title": "no", "payload": "/deny"},
-            ],
-        )
-        return []
-
-
-class AskForMedAction(Action):
-    def name(self) -> Text:
-        return "action_ask_med"
-
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
-        dispatcher.utter_message(
-            text="Hai bisogno di assistenza medica?",
-            buttons=[
-                {"title": "si", "payload": "/affirm"},
-                {"title": "no", "payload": "/deny"},
-            ],
-        )
         return []
 
 
@@ -222,7 +121,8 @@ class ValidateBookingForm(FormValidationAction):
                 allowed_services.append(row['nome'].lower())
 
         if slot_value.lower() not in allowed_services:
-            dispatcher.utter_message(text=f"Il servizio '{                                     slot_value}' non è disponibile. I servizi disponibili sono: {', '.join(allowed_services)}.")
+            dispatcher.utter_message(
+                text=f"Il servizio '{slot_value}' non è disponibile. I servizi disponibili sono: {', '.join(allowed_services)}.")
             return {"service": None}
         dispatcher.utter_message(
             text=f"OK! Hai scelto il servizio {slot_value}.")
@@ -254,7 +154,8 @@ class ValidateBookingForm(FormValidationAction):
                     possible_locations.append(row['nome'].lower())
 
         if slot_value.lower() not in possible_locations:
-            dispatcher.utter_message(text=f"Il luogo '{slot_value}' non è valido per il servizio '{                                     service}'. I luoghi disponibili sono: {', '.join(possible_locations)}.")
+            dispatcher.utter_message(
+                text=f"Il luogo '{slot_value}' non è valido per il servizio '{service}'. I luoghi disponibili sono: {', '.join(possible_locations)}.")
             return {"location": None}
 
         dispatcher.utter_message(
@@ -272,8 +173,7 @@ class ValidateBookingForm(FormValidationAction):
         import re
         time_pattern = re.compile(r'^\d{2}:\d{2}-\d{2}:\d{2}$')
         if not time_pattern.match(slot_value):
-            dispatcher.utter_message(
-                text="Per favore, specifica un orario nel formato HH:MM-HH:MM.")
+            dispatcher.utter_message(response="utter_action_ask_time")
             return {"time": None}
         dispatcher.utter_message(text=f"OK! L'orario scelto è {slot_value}.")
         return {"time": slot_value}
@@ -370,7 +270,8 @@ class ActionAssignOperator(Action):
             return [SlotSet("operator", "nessuno")]
 
         selected_operator = random.choice(available_operators)
-        dispatcher.utter_message(text=f"Operatore assegnato: {                                 selected_operator}.")
+        dispatcher.utter_message(
+            text=f"Operatore assegnato: {       selected_operator}.")
         return [SlotSet("operator", selected_operator)]
 
     def is_time_overlap(self, time1: str, time2: str) -> bool:
