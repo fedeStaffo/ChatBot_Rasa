@@ -1,0 +1,60 @@
+
+version: "3.1"
+stories:
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: bot_challenge
+  - action: utter_iamabot
+  - intent: security_app_detail
+  - action: utter_security_app_detail
+  - intent: request_booking_form
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - requested_slot: service
+  - intent: inform_booking_form
+    entities:
+    - service: cucinare
+  - slot_was_set:
+    - service: cucinare
+  - action: booking_form
+  - slot_was_set:
+    - service: cucinare
+  - slot_was_set:
+    - location: casa
+  - slot_was_set:
+    - requested_slot: time
+  - intent: inform_booking_form
+    entities:
+    - time:
+        to: '2025-01-25T00:00:00.000+01:00'
+        from: '2025-01-24T18:00:00.000+01:00'
+    - time: '2025-01-23T06:00:00.000+01:00'
+  - slot_was_set:
+    - time: '2025-01-23T06:00:00.000+01:00'
+  - action: booking_form
+  - slot_was_set:
+    - time: '2025-01-23T06:00:00.000+01:00'
+  - slot_was_set:
+    - requested_slot: car
+  - intent: deny
+  - slot_was_set:
+    - car: false
+  - action: booking_form
+  - slot_was_set:
+    - car: false
+  - slot_was_set:
+    - requested_slot: med
+  - intent: deny
+  - slot_was_set:
+    - med: false
+  - action: booking_form
+  - slot_was_set:
+    - med: false
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: utter_booking_result

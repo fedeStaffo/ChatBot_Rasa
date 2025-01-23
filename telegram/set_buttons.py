@@ -7,7 +7,7 @@ BOT_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 # Define the commands
 commands = [
-    {"command": "avvia", "description": "🚩 Avvia la sessione"},
+    {"command": "start", "description": "🚩 Avvia la sessione"},
     {"command": "info", "description": "ℹ️ Voglio sapere di più sul ElderCare"},
     {"command": "bot_challenge", "description": "🤖 Sto parlando con un bot?"},
     {"command": "security", "description": "😮 Posso fidarmi di un operatore?"},

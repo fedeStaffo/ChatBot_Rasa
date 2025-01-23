@@ -13,3 +13,18 @@ nlu:
       - vorrei prenotare il servizio [cucinare](service
       - mi serve un aiuto per [fare la spesa](service)
       - vorrei prenotare il servizio [passeggiata](service)
+
+  - intent: inform_booking_form
+    examples: |
+      - il servizio [fare la spesa](service)
+      - vorrei [parlare con qualcuno](service)
+      - [conad adriatico](location)
+      - [cucinare](service)
+      - il servizio [fare la spesa](service)
+      - [parco del cardeto](location)
+      - [ospedale regionale di torrette](location)
+      - Alle 17 
+      - Il pomeriggio alle 5
+      - La mattina alle 8
+      - [visita medica](service)
+      - [parlare con qualcuno](service)

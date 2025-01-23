@@ -1,0 +1,25 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - Ciao!
+- intent: request_booking_form
+  examples: |
+    - Mi servirebbe un aiuto in [cucina](service)
+    - prenoto un servizio
+    - Voglio prenotaare
+- intent: inform_booking_form
+  examples: |
+    - [cucinare](service)
+    - domani alle 5 di pomeriggio
+    - [cucinare](service)
+    - domani sera alle sei e mezza
+- intent: goodbye
+  examples: |
+    - Grazie, Arrivederci
+- intent: bot_challenge
+  examples: |
+    - Cosa sei tu?
+- intent: security_app_detail
+  examples: |
+    - Posso fidarmi degli operatori?

@@ -5,26 +5,8 @@ responses:
     - text: "Quale servizio vuoi prenotare?"
   utter_ask_location:
     - text: "Per favore, specifica una località."
-  utter_ask_date:
-    - text: "Che giorno ti serve il servizio {service}?"
-      condition:
-        - type: slot
-          name: service
-          value: true
-      custom:
-        blocks:
-        - type: section
-          text:
-            text: "Scegli un giorno:"
-            type: mrkdwn
-          accessory:
-            type: datepicker
-            initial_date: '2025-01-01'
-            placeholder:
-              type: plain_text
-              text: Scegli una data
   utter_ask_time:
-    - text: "A che ora?"
+    - text: "Quando ti serve?"
   utter_ask_car:
     - text: "Hai bisogno di trasporto?"
       buttons:

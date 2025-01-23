@@ -14,8 +14,8 @@ from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.types import DomainDict
 from rasa_sdk.events import EventType
 from rasa_sdk.events import SlotSet
+from datetime import datetime, timedelta
 
-# TODO: revisionare alla luce di date+time come slot
 
 class ActionServiceListInfo(Action):
     """
@@ -115,10 +115,16 @@ class ValidateBookingForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `service` value."""
         allowed_services = []
+        result = {}
         with open('actions/csv/servizi.csv', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 allowed_services.append(row['nome'].lower())
+                if row['nome'].lower() == slot_value.lower() and row['luogo'].lower() == 'casa':
+                    print("Set the location to casa")
+                    dispatcher.utter_message(
+                        text="Il servizio scelto è a casa, quindi la località sarà impostata su 'casa'.")
+                    result['location'] = 'casa'
 
         if slot_value.lower() not in allowed_services:
             dispatcher.utter_message(
@@ -126,7 +132,9 @@ class ValidateBookingForm(FormValidationAction):
             return {"service": None}
         dispatcher.utter_message(
             text=f"OK! Hai scelto il servizio {slot_value}.")
-        return {"service": slot_value}
+        result["service"] = slot_value
+        print(result)
+        return result
 
     def validate_location(
         self,
@@ -170,11 +178,12 @@ class ValidateBookingForm(FormValidationAction):
         domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate `time` value."""
-        import re
-        time_pattern = re.compile(r'^\d{2}:\d{2}-\d{2}:\d{2}$')
-        if not time_pattern.match(slot_value):
-            dispatcher.utter_message(response="utter_action_ask_time")
-            return {"time": None}
+        # import re
+        # time_pattern = re.compile(r'^\d{2}:\d{2}-\d{2}:\d{2}$')
+        # if not time_pattern.match(slot_value):
+        #     dispatcher.utter_message(response="utter_action_ask_time")
+        #     return {"time": None}
+        print('time set=', slot_value)
         dispatcher.utter_message(text=f"OK! L'orario scelto è {slot_value}.")
         return {"time": slot_value}
 
@@ -238,6 +247,22 @@ class ValidateBookingForm(FormValidationAction):
 
         return slots
 
+    async def submit(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[str, Any],
+    ) -> List[Dict]:
+        print('Form submitted successfully!')
+        return [
+            SlotSet("service", None),
+            SlotSet("location", None),
+            SlotSet("time", None),
+            SlotSet("car", None),
+            SlotSet("med", None),
+            SlotSet("slot2", None),
+        ]
+
 
 class ActionAssignOperator(Action):
     def name(self) -> Text:
@@ -276,6 +301,8 @@ class ActionAssignOperator(Action):
 
     def is_time_overlap(self, time1: str, time2: str) -> bool:
         """Check if two time ranges overlap."""
-        start1, end1 = time1.split('-')
+        parsed_time = datetime.fromisoformat(time1[:-6])
+        start1 = parsed_time.strftime("%H:%M")
+        end1 = (parsed_time+timedelta(hours=1)).strftime("%H:%M")
         start2, end2 = time2.split('-')
         return max(start1, start2) < min(end1, end2)

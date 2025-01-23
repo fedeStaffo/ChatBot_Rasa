@@ -1,124 +1,135 @@
 version: "3.1"
 
 stories:
-# Rewrite with interactive
-#   - story: service_booking
-#     steps:
-#       - intent: greet
-#       - action: utter_greet
-#       - intent: request_booking_form
-#       - action: booking_form
-#       - active_loop: booking_form
-      
-#       - slot_was_set:
-#           - requested_slot: service
-#       - slot_was_set:
-#           - service: cucinare
-#       - slot_was_set:
-#           - requested_slot: location
-#       - slot_was_set:
-#           - location: casa
-#       - slot_was_set:
-#           - requested_slot: car
-#       - slot_was_set:
-#           - car: true
-#       - slot_was_set:
-#           - requested_slot: med
-#       - slot_was_set:
-#           - med: true
-#       - slot_was_set:
-#           - requested_slot: time
-#       - slot_was_set:
-#           - time: 10:00-12:00
-#       - slot_was_set:
-#           - requested_slot: operator
-#       - slot_was_set:
-#           - operator: Mario Rossi
-#       - slot_was_set:
-#           - requested_slot: null
-#       - active_loop: null
-#       - action: utter_submit
-#       - action: utter_booking_result
-#       - intent: goodbye
-#       - action: utter_goodbye
-#       - action: action_session_start
+    - story: service_booking_interrupted
+      steps:
+          - intent: greet
+          - action: utter_greet
+          - intent: request_booking_form
+          - action: booking_form
+          - active_loop: booking_form
+          - slot_was_set:
+                - requested_slot: service
+          - slot_was_set:
+                - service: cucinare
+          - intent: stop
+          - action: utter_ask_continue_booking
+          - intent: affirm
+          - action: action_deactivate_loop
+          - active_loop: null
+          - slot_was_set:
+                - requested_slot: null
+          - intent: next_action
+          - action: utter_next_action
 
-  - story: service_booking_interrupted
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: request_booking_form
-      - action: booking_form
-      - active_loop: booking_form
-      - slot_was_set:
-          - requested_slot: service
-      - slot_was_set:
-          - service: cucinare
-      - intent: stop
-      - action: utter_ask_continue_booking
-      - intent: affirm
-      - action: action_deactivate_loop
-      - active_loop: null
-      - slot_was_set:
-          - requested_slot: null
-      - intent: next_action
-      - action: utter_next_action
+    - story: service_booking_interruption_resume
+      steps:
+          - intent: greet
+          - action: utter_greet
+          - intent: request_booking_form
+          - action: booking_form
+          - active_loop: booking_form
+          - slot_was_set:
+                - requested_slot: service
+          - slot_was_set:
+                - service: cucinare
+          - intent: stop
+          - action: utter_ask_continue_booking
+          - intent: deny
+          - action: booking_form
+          - active_loop: booking_form
+          - slot_was_set:
+                - requested_slot: location
+          - slot_was_set:
+                - location: casa
+          - intent: stop
+          - action: utter_ask_continue_booking
+          - intent: deny
+          - action: booking_form
+          - active_loop: booking_form
+          - slot_was_set:
+                - requested_slot: car
+          - slot_was_set:
+                - car: true
+          - intent: stop
+          - action: utter_ask_continue_booking
+          - intent: deny
+          - action: booking_form
+          - active_loop: booking_form
+          - slot_was_set:
+                - requested_slot: med
+          - slot_was_set:
+                - med: false
+          - intent: stop
+          - action: utter_ask_continue_booking
+          - intent: deny
+          - action: booking_form
+          - active_loop: booking_form
+          - slot_was_set:
+                - requested_slot: time
+          - slot_was_set:
+                - time: "2025-10-07T00:00:00.000+02:00"
+          - slot_was_set:
+                - requested_slot: operator
+          - slot_was_set:
+                - operator: Mario Rossi
+          - slot_was_set:
+                - requested_slot: null
+          - active_loop: null
+          - action: utter_submit
+          - action: utter_booking_result
+          - intent: goodbye
+          - action: utter_goodbye
 
-  - story: service_booking_interruption_resume
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: request_booking_form
-      - action: booking_form
-      - active_loop: booking_form
-      - slot_was_set:
-          - requested_slot: service
-      - slot_was_set:
-          - service: cucinare
-      - intent: stop
-      - action: utter_ask_continue_booking
-      - intent: deny
-      - action: booking_form
-      - active_loop: booking_form
-      - slot_was_set:
-          - requested_slot: location
-      - slot_was_set:
-          - location: casa
-      - intent: stop
-      - action: utter_ask_continue_booking
-      - intent: deny
-      - action: booking_form
-      - active_loop: booking_form
-      - slot_was_set:
-          - requested_slot: car
-      - slot_was_set:
-          - car: true
-      - intent: stop
-      - action: utter_ask_continue_booking
-      - intent: deny
-      - action: booking_form
-      - active_loop: booking_form
-      - slot_was_set:
-          - requested_slot: med
-      - slot_was_set:
-          - med: false
-      - intent: stop
-      - action: utter_ask_continue_booking
-      - intent: deny
-      - action: booking_form
-      - active_loop: booking_form
-      - slot_was_set:
-          - requested_slot: time
-      - slot_was_set:
-          - time: "10:00-12:00"
-      - slot_was_set:
-          - requested_slot: operator
-      - slot_was_set:
-          - operator: Mario Rossi
-      - slot_was_set:
-          - requested_slot: null
-      - active_loop: null
-      - action: utter_submit
-      - action: utter_booking_result
-      - intent: goodbye
-      - action: utter_goodbye
+    - story: service_booking_happy
+      steps:
+          - intent: greet
+          - action: utter_greet
+          - intent: request_booking_form
+          - action: booking_form
+          - active_loop: booking_form
+          - slot_was_set:
+            - requested_slot: service
+          - intent: inform_booking_form
+            entities:
+                - service: cucinare
+          - slot_was_set:
+                - service: cucinare
+          - action: booking_form
+          - slot_was_set:
+                - service: cucinare
+          - slot_was_set:
+                - location: casa
+          - slot_was_set:
+                - requested_slot: time
+          - intent: inform_booking_form
+            entities:
+                - time: "2025-01-24T17:00:00.000+01:00"
+          - slot_was_set:
+                - time: "2025-01-24T17:00:00.000+01:00"
+          - action: booking_form
+          - slot_was_set:
+                - time: "2025-01-24T17:00:00.000+01:00"
+          - slot_was_set:
+                - requested_slot: car
+          - intent: affirm
+          - slot_was_set:
+                - car: true
+          - action: booking_form
+          - slot_was_set:
+                - car: true
+          - slot_was_set:
+                - requested_slot: med
+          - intent: deny
+          - slot_was_set:
+                - med: false
+          - action: booking_form
+          - slot_was_set:
+                - med: false
+          - slot_was_set:
+                - requested_slot: null
+          - active_loop: null
+          - action: utter_submit
+          - action: utter_booking_result
+          - intent: goodbye
+          - action: utter_goodbye

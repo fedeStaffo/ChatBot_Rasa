@@ -5,7 +5,7 @@ intents:
 - deny
 - stop
 - next_action
-- inform
+- inform_booking_form
 - request_booking_form
 - service_list_info
 - service_detail

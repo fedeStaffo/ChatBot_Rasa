@@ -50,7 +50,7 @@ stories:
       - requested_slot: service
   - user: |
       cucinare
-    intent: inform
+    intent: inform_booking_form
     entities:
       - service: cucinare
   - slot_was_set:
@@ -59,7 +59,7 @@ stories:
       - requested_slot: location
   - user: |
       casa
-    intent: inform
+    intent: inform_booking_form
     entities:
       - location: casa
   - slot_was_set:
@@ -82,7 +82,7 @@ stories:
       - requested_slot: time
   - user: |
       10:00-12:00
-    intent: inform
+    intent: inform_booking_form
     entities:
       - time: 10:00-12:00
   - slot_was_set:
