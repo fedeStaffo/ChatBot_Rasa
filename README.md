@@ -118,19 +118,6 @@ If you add new dependencies or update existing ones, you should update the `requ
     pip freeze > requirements.txt
     ```
 
-## Rasa Project Structure
-
-- `actions/`: Contains custom action code.
-- `data/`: Contains training data for NLU and Core.
-  - `nlu.yml`: Contains NLU training data.
-  - `stories.yml`: Contains training stories for Rasa Core.
-  - `rules.yml`: Contains rules for Rasa Core.
-- `models/`: Contains trained models.
-- `config.yml`: Configuration file for Rasa NLU and Core.
-- `credentials.yml`: Contains credentials for external services.
-- `domain.yml`: Defines the domain of the assistant including intents, entities, slots, and responses.
-- `endpoints.yml`: Configuration for connecting to external services.
-
 ## Training the Model
 
 To train the Rasa model, run the following command:
@@ -146,8 +133,6 @@ The custom actions are defined in `actions/actions.py`. These actions are used t
 
 The booking process is managed using a form and several custom actions. The form collects necessary information from the user, such as the service they want to book, the location, time, and any additional requirements like transportation or medical assistance.
 
-#### Form Definition
-
 The form is defined in the `domain.yml` file under the `forms` section:
 
 ```yaml
@@ -159,49 +144,4 @@ forms:
     - time
     - car
     - med
-    - operator
 ```
-
-#### Custom Actions
-
-Several custom actions are used to handle different parts of the booking process. These actions are defined in `actions/actions.py`.
-
-1. **AskForServiceAction**: This action asks the user which service they want to book.
-
-```python
-class AskForServiceAction(Action):
-    def name(self) -> Text:
-        return "action_ask_service"
-
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
-        dispatcher.utter_message(text="Quale servizio vuoi prenotare?")
-        return []
-```
-
-2. **AskForLocationAction**: This action asks the user for the location.
-
-3. **AskForTimeAction**: This action asks the user for the time.
-
-4. **AskForCarAction**: This action asks the user if they need transportation using buttons for saving boolean values.
-
-```python
-class AskForCarAction(Action):
-    def name(self) -> Text:
-        return "action_ask_car"
-
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict) -> List[EventType]:
-        dispatcher.utter_message(
-            text="Hai bisogno di trasporto?",
-            buttons=[
-                {"title": "si", "payload": "/affirm"},
-                {"title": "no", "payload": "/deny"},
-            ],
-        )
-        return []
-```
-
-5. **AskForMedAction**: This action asks the user if they need medical assistance in the same way as AskForCarAction.
-
-6. **ActionAssignOperator**: This action assigns an operator based on the selected time, car, and med slots.
-
-7. **ValidateBookingForm**: This action validates the slots once all slots are filled.
