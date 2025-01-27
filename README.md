@@ -118,18 +118,7 @@ If you add new dependencies or update existing ones, you should update the `requ
     pip freeze > requirements.txt
     ```
 
-## Training the Model
-
-To train the Rasa model, run the following command:
-```bash
-rasa train
-```
-
-## Custom Actions
-
-The custom actions are defined in `actions/actions.py`. These actions are used to fetch information from external sources, such as a CSV file, and provide detailed responses to the user.
-
-### Booking Form and Actions
+### Booking Form
 
 The booking process is managed using a form and several custom actions. The form collects necessary information from the user, such as the service they want to book, the location, time, and any additional requirements like transportation or medical assistance.
 
